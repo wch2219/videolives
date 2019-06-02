@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">短视频</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="phonenumber">手机号码</string>
+    <string name="password">密码</string>
+    <string name="forgetpwd">忘记密码</string>
+    <string name="register">注冊</string>
+    <string name="title_forgetpwd">修改密码</string>
+    <string name="aff">确认</string>
+    <string name="placeinputoldpwd">请输入旧密码</string>
+    <string name="placeinputnewpwd">请输入新密码</string>
+    <string name="placeinpuaffdpwd">请确认新密码</string>
+    <string name="changepwd">修改密码</string>
+    <string name="findpwd">忘记密码</string>
+    <string name="placeinputphone">请输入手机号</string>
+    <string name="placeinputauthcode">请输入验证码</string>
+    <string name="getauthcode">验证码</string>
+    <string name="placeinputpwd">请输入密码</string>
+</resources>

@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">KottlinBaseLib</string>
+    <string name="aff">确认</string>
+    <string name="permisson">权限提示</string>
+    <string name="permissoncontent">请到设置中给与权限</string>
+    <string name="gosettion">去设置</string>
+    <string name="clean_cache_title">确认清除</string>
+    <string name="clear_cache_content">是否清除数据缓存</string>
+    <string name="close" tools:ignore="ExtraTranslation">取消</string>
+    <string name="clear_cache">清除缓存</string>
+</resources>

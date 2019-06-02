@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@mipmap/icon_syyuyina"
+          android:duration="200"
+    />
+    <item android:drawable="@mipmap/icon_syyuyinb"
+          android:duration="200"
+    />
+    <item android:drawable="@mipmap/icon_syyuyinc"
+          android:duration="200"
+    />
+    <item android:drawable="@mipmap/icon_syyuyind"
+          android:duration="200"
+    />
+    <item android:drawable="@mipmap/icon_syyuyine"
+          android:duration="200"
+    />
+    <item android:drawable="@mipmap/icon_syyuyinf"
+          android:duration="200"
+    />
+</animation-list>

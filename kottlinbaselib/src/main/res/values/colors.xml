@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">@color/blue</color>
+    <color name="colorAccent">@color/blue</color>
+    <color name="text_color">#333333</color>
+    <color name="text_99">#999999</color>
+    <color name="appcolor">#9D44EE</color>
+    <color name="buy_color">#ffa630</color>
+    <color name="white">#FFFFFF</color>
+    <color name="yellow">#FFB929</color>
+    <color name="young">#00CBFE</color>
+    <color name="red2">#FF6D50</color>
+    <color name="red3">#FE0067</color>
+    <color name="blue">#0076FE</color>
+    <color name="tranblue">#660076FE</color>
+    <color name="green">#0F962E</color>
+    <color name="transcolor">#00000000</color>
+    <color name="gary9">#999999</color>
+    <color name="gary2424">#242424</color>
+    <color name="black">#000000</color>
+    <color name="red4">#DC3D1A</color>
+    <color name="bg_color">#D1F8F8F8</color>
+    <color name="havling">#EBEBEB</color>
+    <color name="havlingtran">#88EBEBEB</color>
+    <color name="inputpine">#33FFFFFF</color>
+    <color name="inputpine1">#66FFFFFF</color>
+</resources>

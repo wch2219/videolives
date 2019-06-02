@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--字体包样式-->
+    <style name="PingFangLight">
+        <!--<item name="android:fontFamily" tools:ignore="NewApi">@font/pingfanglight_xml</item>-->
+    </style>
+    <style name="PingFangMedium">
+        <!--<item name="android:fontFamily" tools:ignore="NewApi">@font/pingfangmedium_xml</item>-->
+    </style>
+    <style name="PingFangRegular">
+        <!--<item name="android:fontFamily" tools:ignore="NewApi">@font/pingfangregular_xml</item>-->
+    </style>
+    <style name="PingFangSemibold">
+        <!--<item name="android:fontFamily" tools:ignore="NewApi">@font/pingfangsemibold_xml</item>-->
+    </style>
+    <style name="PingFangThin">
+        <!--<item name="android:fontFamily" tools:ignore="NewApi">@font/pingfangthin_xml</item>-->
+    </style>
+    <style name="PingFangUltraLight">
+        <!--<item name="android:fontFamily" tools:ignore="NewApi">@font/pingfangultralight_xml</item>-->
+    </style>
+
+    <style name="dialogWindowAnim" parent="android:Animation" mce_bogus="1">
+        <item name="android:windowEnterAnimation">@anim/dialog_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit_anim</item>
+    </style>
+</resources>

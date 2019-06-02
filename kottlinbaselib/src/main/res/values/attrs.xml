@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--自定义头部-->
+    <declare-styleable name="CustomToolBar">
+        <attr name="back_src" format="reference" />
+        <attr name="title_text" format="string" />
+        <attr name="left_text" format="string" />
+        <attr name="left_textcolor" format="color"/>
+        <attr name="title_text_size" format="dimension" />
+        <attr name="title_text_color" format="color" />
+        <attr name="right_title" format="string" />
+        <attr name="right_title_color" format="color" />
+        <attr name="right_title_size" format="dimension" />
+        <attr name="right_src" format="reference" />
+        <attr name="right_title_visibility" format="enum">
+            <enum name="gone" value="8" />
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+        </attr>
+        <attr name="line_color" format="color" />
+        <attr name="line_height" format="dimension" />
+        <attr name="backclick" format="boolean"/>
+        <attr name="title_backage" format="reference"/>
+        <attr name="title_image" format="enum">
+            <enum name="gone" value="8" />
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="ManagerToolBar">
+        <attr name="title_left" format="string"/>
+        <attr name="title_right" format="string"/>
+        <attr name="right_share" format="enum">
+            <enum name="gone" value="8" />
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="4" />
+        </attr>
+
+    </declare-styleable>
+    <declare-styleable name="ADTextView">
+        <!--文字进入与消失的时间-->
+        <attr name="ad_text_view_speed" format="integer" />
+
+        <!--文字停留在中心的时间-->
+        <attr name="ad_text_view_interval" format="integer" />
+
+        <!--前缀文字颜色-->
+        <attr name="ad_text_front_color" format="color" />
+        <!--前缀文字大小-->
+        <attr name="ad_text_front_size" format="dimension" />
+
+        <!--内容文字颜色-->
+        <attr name="ad_text_content_color" format="color" />
+        <!--内容文字大小-->
+        <attr name="ad_text_content_size" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="Percentview">
+        <attr name="layout_heightPercent" format="float"/>
+        <attr name="layout_widthPercent" format="float"/>
+
+    </declare-styleable>
+    <declare-styleable name="ArcProgress">
+        <attr name="borderWidth" format="dimension" />
+        <attr name="unprogresColor" format="color" />
+        <attr name="progressColor" format="color" />
+        <attr name="tickWidth" format="dimension" />
+        <attr name="tickDensity" format="integer" />
+        <attr name="bgShow" format="boolean" />
+        <attr name="radiusarc" format="dimension" />
+        <attr name="arcbgColor" format="color" />
+        <attr name="degree" format="integer" />
+        <attr name="arcCapRound" format="boolean" />
+        <attr name="progressStyle" format="enum">
+            <enum name="tick" value="1" />
+            <enum name="arc" value="0" />
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="Cookie">
+        <!--TextColor-->
+        <attr name="cookieTitleColor" format="color"/>
+        <attr name="cookieMessageColor" format="color"/>
+        <attr name="cookieActionColor" format="color"/>
+        <attr name="cookieBackgroundColor" format="color"/>
+        <!--TextSize-->
+        <attr name="titleTextSize" format="dimension"/>
+        <attr name="messageTextSize" format="dimension"/>
+        <attr name="actionTextSize" format="dimension"/>
+    </declare-styleable>
+    <declare-styleable name="DragMoreScrollView">
+        <attr name="photoReservedHeight" format="dimension"/>
+        <attr name="fullAnimationDuration" format="integer"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="EnhanceTabLayout">
+        <attr name="tab_Mode" format="enum">
+            <enum name="mode_fixed" value="1"/>
+            <enum name="mode_scrollable" value="2"/>
+        </attr>
+        <attr name="tabIndicatorColor" format="color"/>
+        <attr name="tabSelectTextColor" format="color"/>
+        <attr name="tabTextColor" format="color"/>
+        <attr name="tabIndicatorHeight" format="dimension"/>
+        <attr name="tabIndicatorWidth" format="dimension"/>
+        <attr name="tabTextSize" format="dimension"/>
+        <attr name="tabIndicatorTextSize" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <!--<attr name="border_color" format="color" />-->
+    </declare-styleable>
+</resources>

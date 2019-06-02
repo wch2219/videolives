@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="#66000000"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/dimen_40dp"
+            android:background="@drawable/shape_share_bg"
+           android:layout_centerInParent="true"
+    >
+
+        <ImageView
+                android:layout_width="match_parent"
+                android:src="@mipmap/icon_sharebg"
+                android:layout_height="wrap_content"/>
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="vertical"
+        >
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:padding="@dimen/dimen_10dp"
+                  android:text="邀请好友"
+                  android:textSize="@dimen/text_dimens16"
+                  android:textColor="@color/white"
+                  android:layout_gravity="center_horizontal"
+        />
+        <RelativeLayout
+                android:layout_width="wrap_content"
+                android:background="@color/white"
+                android:layout_marginTop="@dimen/text_dimens10"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content">
+
+            <ImageView android:layout_width="@dimen/dimen_100dp"
+                       android:layout_margin="@dimen/dimen_5dp"
+                       android:src="@mipmap/icon_ercode"
+                        android:id="@+id/iv_code"
+                       android:layout_height="@dimen/dimen_100dp"/>
+
+        </RelativeLayout>
+
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:layout_marginTop="@dimen/text_dimens10"
+                  android:text="链接地址：www.baidu.com"
+                  android:textSize="@dimen/text_dimens12"
+                  android:textColor="@color/white"
+                  android:layout_gravity="center_horizontal"
+        />
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+
+                  android:text="没邀请一位好友将获获取更多体验"
+                  android:textSize="@dimen/text_dimens12"
+                  android:textColor="@color/white"
+                  android:layout_gravity="center_horizontal"
+        />
+
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:gravity="center_horizontal"
+                      android:layout_height="wrap_content"
+                      android:padding="@dimen/text_dimens20"
+                      android:orientation="horizontal"
+        >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="保存二维码"
+                    android:id="@+id/tv_downcode"
+                    android:drawableTop="@mipmap/icon_down"
+                    android:textColor="@color/white"
+                    android:drawablePadding="@dimen/dimen_5dp"
+                    android:textSize="@dimen/text_dimens12"
+            />
+
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="复制链接"
+                    android:id="@+id/tv_savelink"
+                    android:layout_marginLeft="@dimen/dimen_40dp"
+                    android:drawableTop="@mipmap/icon_copy"
+                    android:drawablePadding="@dimen/dimen_5dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_dimens12"
+            />
+
+
+        </LinearLayout>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/dimen_10dp"
+                android:layout_marginRight="@dimen/dimen_10dp"
+                android:background="@color/white"
+        />
+        <TextView android:layout_width="match_parent"
+                  android:padding="@dimen/dimen_20dp"
+                    android:id="@+id/tv_close"
+                  android:text="取消"
+                  android:gravity="center"
+                  android:textColor="@color/white"
+                  android:textSize="@dimen/text_dimens16"
+                  android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>
