@@ -6,17 +6,18 @@ import io.reactivex.Observable
 import okhttp3.RequestBody
 import retrofit2.http.*
 
-public interface ApiServer {
+interface ApiServer {
 
 
-    @Headers("Content-Type:application/x-www-form-urlencoded")
+    //    @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST("manager/user/getAuth")
-    fun  getAuth(@Query(Contents.Phone) phone:String): Observable<BaseResult>
+    fun getAuth(@Query(Contents.Phone) phone: String): Observable<BaseResult>
 
-
+    @FormUrlEncoded
     @POST("manager/user/register")
-    fun register(@Body body:RequestBody): Observable<BaseResult>?
+    fun register(@FieldMap map: MutableMap<String, Any>): Observable<BaseResult>?
 
+    @FormUrlEncoded
     @POST("manager/user/login")
-    fun login(@Body requestBody: RequestBody?):Observable<BaseResult>?
+    fun login(@FieldMap map: MutableMap<String, Any>): Observable<BaseResult>?
 }

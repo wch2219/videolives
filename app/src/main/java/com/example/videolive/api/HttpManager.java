@@ -51,7 +51,7 @@ public class HttpManager {
         // 初始化okhttp
         OkHttpClient client = new OkHttpClient.Builder()
 //                .sslSocketFactory(HttpsUtils.getSSLCertifcation(context),HttpsUtils.UnSafeTrustManager)
-//                .addInterceptor(OkHttpInterce.getLog())
+                .addInterceptor(OkHttpInterce.Companion.getLog())
                 .addInterceptor(OkHttpInterce.Companion.getRequestHeader(context))
                 .addInterceptor(OkHttpInterce.Companion.getErrorCode())
                 .addNetworkInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))

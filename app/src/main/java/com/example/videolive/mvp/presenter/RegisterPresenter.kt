@@ -24,7 +24,7 @@ class RegisterPresenter(view: RegisterView) : BasePresenter<RegisterView>(view){
         map.put(Contents.Phone,phone)
         map.put(Contents.Password,pwd)
         map.put(Contents.AuthCode,authcode)
-        val observable = Model.getServer().register(Model.getRequestBody(map))
+        val observable = Model.getServer().register(map)
         Model.getObservable(observable,object :CustomObserver<BaseResult>(mvpView){
             override fun onNext(t: BaseResult) {
                 LogUtils.I(t.code)

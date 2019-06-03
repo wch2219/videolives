@@ -61,6 +61,7 @@ class OkHttpInterce : Interceptor {
         fun setOnErrorCalBackListener(onErrorCalBackListener: OnErrorCalBackListener) {
             mOnErrorCalBackListener = onErrorCalBackListener
         }
+
         val UTF8: Charset = Charset.forName("UTF-8")
         fun getErrorCode(): Interceptor {
             return Interceptor { chain ->
@@ -94,8 +95,9 @@ class OkHttpInterce : Interceptor {
             return Interceptor { chain ->
                 val originalRequest = chain.request()
                 val builder = originalRequest.newBuilder()
-                builder.addHeader("User-Agent", getUserAgent(context))
-                                builder.addHeader("Accept", "application/json");
+//                builder.addHeader("User-Agent", getUserAgent(context))
+                builder.addHeader("Accept", "application/json")
+                builder.addHeader("Content-Type", "application/x-www-form-urlencoded")
                 val token = SPUtils.getString(ApiContents.Token)
                 if (!TextUtils.isEmpty(token)) {
                     builder.addHeader("Authorization", "Bearer $token")
@@ -117,7 +119,7 @@ class OkHttpInterce : Interceptor {
 
             var appVersion: String
             try {
-                appVersion = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName
+                appVersion = context.packageManager.getPackageInfo(context.packageName, 0).versionName
             } catch (e: Exception) {
                 appVersion = "1.0.0"
             }

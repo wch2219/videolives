@@ -23,8 +23,9 @@
             android:roundIcon="@mipmap/logo"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
-            android:networkSecurityConfig="@xml/network_security_config"
+            android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
+        <!--android:networkSecurityConfig="@xml/network_security_config"-->
 
         <provider
                 android:name="androidx.core.content.FileProvider"
@@ -33,7 +34,7 @@
                 android:grantUriPermissions="true">
             <meta-data
                     android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/file_paths" />
+                    android:resource="@xml/file_paths"/>
         </provider>
         <activity android:name=".ui.activitys.PlayVideoActivity"
                   android:configChanges="orientation|screenSize|keyboardHidden"
@@ -47,11 +48,7 @@
                 android:name=".ui.activitys.SplashActivity"
                 android:screenOrientation="portrait"
                 android:theme="@style/SplashActivityTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
                 android:name=".ui.activitys.RegisterActivity"
@@ -64,6 +61,11 @@
         <activity
                 android:name=".ui.activitys.LoginActivity"
                 android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <activity
                 android:name=".ui.activitys.VideoPreViewActivity"

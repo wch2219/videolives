@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.kottlinbaselib.mvp.presenter.BasePresenter
 import com.example.kottlinbaselib.mvp.view.IView
+import com.example.kottlinbaselib.utils.LogUtils
 import com.example.videolive.R
 import com.example.videolive.model.bean.BaseResult
 import com.example.videolive.model.utils.Contents
@@ -56,10 +57,15 @@ class LoginActivity : BaseActivity<BasePresenter<IView>, IView>(), View.OnClickL
         val map = mutableMapOf<String,Any>()
         map[Contents.Phone] = "18637051978"
         map[Contents.Password] = "123456"
-        val login = Model.getServer().login(Model.getRequestBody(map))
+        val login = Model.getServer().login(map)
         Model.getObservable(login,object :CustomObserver<BaseResult>(mvpView){
             override fun onNext(t: BaseResult) {
 
+            }
+
+            override fun onError(e: Throwable) {
+                super.onError(e)
+                LogUtils.I(e.toString())
             }
         })
     }
