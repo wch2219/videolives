@@ -14,6 +14,7 @@ import com.example.videolive.ui.base.BaseActivity
 import com.example.videolive.ui.fragments.MineFragment
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureMimeType
+import com.luck.picture.lib.config.PictureMimeType.ofVideo
 import kotlinx.android.synthetic.main.activity_main.*
 import ui.fragments.HomeFragment
 
@@ -49,7 +50,10 @@ class MainActivity : BaseActivity<BasePresenter<IView>, IView>()
             if (PermissionUtils.checkReadPermission(arrayOf(Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE),100,mContext)) {
                 PictureSelector.create(this@MainActivity)
-                    .openCamera(PictureMimeType.ofVideo())
+                    .openGallery(PictureMimeType.ofVideo())
+//                    .openCamera(PictureMimeType.ofVideo())
+                    .previewVideo(true)
+                    .videoMaxSecond(10)
                     .forResult(1)
             }
         }
