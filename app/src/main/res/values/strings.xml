@@ -18,4 +18,5 @@
     <string name="placeinputauthcode">请输入验证码</string>
     <string name="getauthcode">验证码</string>
     <string name="placeinputpwd">请输入密码</string>
+    <string name="live_liang">靓</string>
 </resources>

@@ -47,6 +47,12 @@ class MainActivity : BaseActivity<BasePresenter<IView>, IView>()
 //        bott_navi_view.setOnNavigationItemSelectedListener(this)
 //        viewpage.addOnPageChangeListener(this)
         id_camera.setOnClickListener {
+
+
+
+
+
+
             if (PermissionUtils.checkReadPermission(arrayOf(Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE),100,mContext)) {
                 PictureSelector.create(this@MainActivity)

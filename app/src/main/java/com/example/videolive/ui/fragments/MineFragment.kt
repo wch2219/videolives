@@ -12,8 +12,7 @@ import com.example.videolive.R
 import com.example.videolive.model.utils.Contents
 import com.example.videolive.model.utils.GlideUtils
 import com.example.videolive.ui.activitys.ChangePwdActivity
-import com.example.videolive.ui.activitys.FeedBackActivity
-import com.example.videolive.ui.activitys.LoginActivity
+import com.example.videolive.ui.activitys.MineInfoActivity
 import com.example.videolive.ui.adapters.MainFragmentAdapter
 import com.example.videolive.ui.base.BaseFragment
 import com.example.videolive.ui.views.popu.SharePopuWindow
@@ -46,7 +45,7 @@ class MineFragment : BaseFragment<BasePresenter<IView>, IView>(), View.OnClickLi
         titles.add("关注")
         titles.add("收藏")
         titles.add("我的视频")
-        fragments.add(MineTabragment())
+        fragments.add(MineAttentTabragment())
         fragments.add(MineTabragment())
         fragments.add(MineTabragment())
         viewpage.adapter = MainFragmentAdapter(childFragmentManager,fragments,titles!!)
@@ -56,7 +55,7 @@ class MineFragment : BaseFragment<BasePresenter<IView>, IView>(), View.OnClickLi
     override fun initListener() {
         ll_user.setOnClickListener(this::onClick)
         tv_changepwd.setOnClickListener(this::onClick)
-        tv_feedback.setOnClickListener(this::onClick)
+        tv_mineinfo.setOnClickListener(this::onClick)
         tv_cleancache.setOnClickListener(this::onClick)
         iv_share.setOnClickListener(this::onClick)
 
@@ -65,11 +64,13 @@ class MineFragment : BaseFragment<BasePresenter<IView>, IView>(), View.OnClickLi
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ll_user -> {
-                startActivity(Intent(mContext, LoginActivity::class.java))
+//                startActivity(Intent(mContext, LoginActivity::class.java))
+
+
 
             }
-            R.id.tv_feedback -> {
-                startActivity(Intent(mContext, FeedBackActivity::class.java))
+            R.id.tv_mineinfo -> {
+                startActivity(Intent(mContext, MineInfoActivity::class.java))
 
             }
             R.id.tv_changepwd -> {

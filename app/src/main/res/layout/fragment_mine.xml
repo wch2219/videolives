@@ -73,14 +73,14 @@
             >
                 <TextView android:layout_width="wrap_content"
                           android:layout_weight="1"
-                          android:id="@+id/tv_feedback"
+                          android:id="@+id/tv_mineinfo"
                           android:drawablePadding="@dimen/dimen_5dp"
                           android:textSize="@dimen/text_dimens12"
                           android:textColor="@color/text_color"
                           android:gravity="center_horizontal"
                           android:drawableTop="@mipmap/icon_feedback"
                           android:layout_height="wrap_content"
-                          android:text="意见反馈"
+                          android:text="个人信息"
 
                 />
                 <TextView android:layout_width="wrap_content"
