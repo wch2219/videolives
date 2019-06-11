@@ -68,6 +68,7 @@
         <activity
                 android:name=".ui.activitys.LoginActivity"
                 android:screenOrientation="portrait">
+
         </activity>
         <activity
                 android:name=".ui.activitys.VideoPreViewActivity"
@@ -79,6 +80,7 @@
         </activity>
         <activity
                 android:name=".MainActivity"
+                android:launchMode="singleTask"
                 android:screenOrientation="portrait">
         </activity>
     </application>

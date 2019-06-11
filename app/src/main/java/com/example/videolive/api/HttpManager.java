@@ -3,6 +3,7 @@ package com.example.videolive.api;
 import android.content.Context;
 import android.os.Handler;
 import com.example.videolive.model.utils.Contents;
+import com.hg.kotlin.api.ApiContents;
 import com.hg.kotlin.api.ApiServer;
 import com.hg.kotlin.api.CookieInter;
 import com.hg.kotlin.api.OkHttpInterce;
@@ -62,7 +63,7 @@ public class HttpManager {
         // 初始化Retrofit
         retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(Contents.BaseUrl)
+                .baseUrl(ApiContents.BaseUrl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create());
         retrofits = retrofit.build();

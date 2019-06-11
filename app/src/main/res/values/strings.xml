@@ -6,7 +6,7 @@
     <string name="phonenumber">手机号码</string>
     <string name="password">密码</string>
     <string name="forgetpwd">忘记密码</string>
-    <string name="register">注冊</string>
+    <string name="register">注册</string>
     <string name="title_forgetpwd">修改密码</string>
     <string name="aff">确认</string>
     <string name="placeinputoldpwd">请输入旧密码</string>

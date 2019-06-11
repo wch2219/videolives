@@ -76,7 +76,7 @@ class OkHttpInterce : Interceptor {
                 val contentLength = response.body()!!.contentLength()
                 if (contentLength != 0L) {
                     val string = buffer.clone().readString(charset!!)
-                    mOnErrorCalBackListener?.onError(response.code(), string)
+                    mOnErrorCalBackListener?.onError(response.code(), if (string.isNullOrEmpty()){response.message()}else string )
                 }
 
                 LogUtils.I(buffer.size())

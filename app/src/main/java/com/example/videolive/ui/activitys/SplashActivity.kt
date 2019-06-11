@@ -34,7 +34,7 @@ class SplashActivity : BaseActivity<BasePresenter<IView>, IView>() {
         override fun onFinish() {
 
 
-            startActivity(Intent(mContext, MainActivity::class.java))
+            startActivity(Intent(mContext, LoginActivity::class.java))
 
             finish()
         }

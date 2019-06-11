@@ -1,23 +1,28 @@
 package com.hg.kotlin.api
 
-import com.example.videolive.model.bean.BaseResult
+import com.example.videolive.model.bean.AuthCodeBean
+import com.example.videolive.model.bean.LoginBean
+import com.example.videolive.model.bean.RegisterBean
 import com.example.videolive.model.utils.Contents
 import io.reactivex.Observable
-import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface ApiServer {
 
 
     //    @Headers("Content-Type:application/x-www-form-urlencoded")
-    @POST("manager/user/getAuth")
-    fun getAuth(@Query(Contents.Phone) phone: String): Observable<BaseResult>
+    @POST
+    fun getAuth(@Url api:String,@Query(Contents.MOBILE) phone: String, @Query(Contents.SIGN) sign:String): Observable<AuthCodeBean>
 
     @FormUrlEncoded
-    @POST("manager/user/register")
-    fun register(@FieldMap map: MutableMap<String, Any>): Observable<BaseResult>?
+    @POST
+    fun register(@Url api: String,@FieldMap map: MutableMap<String, Any>): Observable<RegisterBean>?
 
     @FormUrlEncoded
-    @POST("manager/user/login")
-    fun login(@FieldMap map: MutableMap<String, Any>): Observable<BaseResult>?
+    @POST(ApiContents.LOGIN)
+    fun login(@FieldMap map: MutableMap<String, Any>): Observable<LoginBean>?
+
+    @FormUrlEncoded
+    @POST(ApiContents.GET_USERINFO)
+    fun getUserInfo(@FieldMap map: MutableMap<String, Any?>): Observable<LoginBean>?
 }

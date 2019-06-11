@@ -1,45 +1,35 @@
 package com.example.videolive.model.bean;
 
 
-import io.reactivex.annotations.NonNull;
-import org.jetbrains.annotations.NotNull;
+
 
 public class BaseResult {
-    public BaseResult() {
-        super();
+
+    /**
+     * ret : 200
+     * data : {"code":1001,"msg":"签名错误","info":[]}
+     * msg :
+     */
+
+    private int ret;
+
+    private String msg;
+
+    public int getRet() {
+        return ret;
     }
 
-    public BaseResult(int code, @NonNull String mess, @NotNull Object o) {
-       this.code = code;
-       this.mess = mess;
-       this.object =o;
+    public void setRet(int ret) {
+        this.ret = ret;
     }
 
-    private int code;
-    private String mess;
-    private Object object;
 
-    public int getCode() {
-        return code;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public String getMess() {
-        return mess;
-    }
-
-    public void setMess(String mess) {
-        this.mess = mess;
-    }
-
-    public Object getObject() {
-        return object;
-    }
-
-    public void setObject(Object object) {
-        this.object = object;
-    }
 }

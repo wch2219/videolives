@@ -1,22 +1,15 @@
 package com.example.videolive.ui.activitys
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import com.example.kottlinbaselib.mvp.presenter.BasePresenter
-import com.example.kottlinbaselib.mvp.view.IView
-import com.example.kottlinbaselib.utils.LogUtils
+import com.example.videolive.MainActivity
 import com.example.videolive.R
-import com.example.videolive.model.bean.BaseResult
-import com.example.videolive.model.utils.Contents
-import com.example.videolive.mvp.model.Model
+import com.example.videolive.mvp.presenter.LoginPresenter
+import com.example.videolive.mvp.view.LoginView
 import com.example.videolive.ui.base.BaseActivity
-import com.hg.kotlin.api.CustomObserver
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : BaseActivity<BasePresenter<IView>, IView>(), View.OnClickListener {
+class LoginActivity : BaseActivity<LoginPresenter, LoginView>(), View.OnClickListener,LoginView {
     override fun getlayoutId(): Int {
 
         return R.layout.activity_login
@@ -54,19 +47,18 @@ class LoginActivity : BaseActivity<BasePresenter<IView>, IView>(), View.OnClickL
     }
 
     private fun login() {
-        val map = mutableMapOf<String,Any>()
-        map[Contents.Phone] = "18637051978"
-        map[Contents.Password] = "123456"
-        val login = Model.getServer().login(map)
-        Model.getObservable(login,object :CustomObserver<BaseResult>(mvpView){
-            override fun onNext(t: BaseResult) {
+        val phone = et_phone.text.toString().trim()
+        val pwd = et_password.text.toString().trim()
+        presenter.login(phone,pwd)
+    }
 
-            }
+    override fun loginSuccess() {
+        startActivity(Intent(mContext,MainActivity::class.java))
+        finish()
+    }
 
-            override fun onError(e: Throwable) {
-                super.onError(e)
-                LogUtils.I(e.toString())
-            }
-        })
+    override fun createPresenter(): LoginPresenter? {
+        return LoginPresenter(mvpView)
+
     }
 }

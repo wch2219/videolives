@@ -1,16 +1,19 @@
 package com.example.videolive.ui.activitys
 
 import android.annotation.SuppressLint
+import android.os.CountDownTimer
 import android.view.View
 import com.example.videolive.R
-import com.example.videolive.model.utils.Contents
+import com.example.videolive.model.bean.AuthCodeBean
 import com.example.videolive.mvp.presenter.RegisterPresenter
 import com.example.videolive.mvp.view.RegisterView
 import com.example.videolive.ui.base.BaseActivity
+import com.hg.kotlin.api.ApiContents
+
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : BaseActivity<RegisterPresenter, RegisterView>(),View.OnClickListener,RegisterView {
-
+    var sending:Boolean = false
     override fun getlayoutId(): Int {
         return R.layout.activity_register
     }
@@ -21,9 +24,9 @@ class RegisterActivity : BaseActivity<RegisterPresenter, RegisterView>(),View.On
 
     }
 
-    @SuppressLint("SetTextI18n")
+
     override fun initData() {
-        et_phone.setText("18637051978")
+
     }
 
     override fun initListener() {
@@ -34,7 +37,9 @@ class RegisterActivity : BaseActivity<RegisterPresenter, RegisterView>(),View.On
         when(v?.id){
             R.id.tv_auth ->{
                val phone = et_phone.text.trim().toString()
-                presenter.getAuth(phone)
+                if (!sending) {
+                    presenter.getAuth(phone, ApiContents.GETCODE)
+                }
             }
             R.id.btn_register ->{
                 registerApi()
@@ -47,13 +52,46 @@ class RegisterActivity : BaseActivity<RegisterPresenter, RegisterView>(),View.On
         val phone = et_phone.text.trim().toString()
         val authcode = et_authcode.text.trim().toString()
         val password = et_newpwd.text?.trim().toString()
+        val affpwd = et_affpwd.text?.trim().toString()
 
-        val map= mutableMapOf<String,Any>()
-        map[Contents.Phone] =
-        presenter.register(phone,password,authcode)
+
+        presenter.register(phone, password, affpwd, authcode, ApiContents.REGISTER)
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun authSuccess(t: AuthCodeBean) {
+        et_authcode.setText( t.data.msgX.replace("验证码为：",""))
+        mCountDownTimer.start()
+    }
+    var mCountDownTimer = object : CountDownTimer(30*1000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            sending = true
+            tv_auth.text = String.format("%dS后重发",millisUntilFinished/1000)
+        }
+        override fun onFinish() {
+            sending = false
+            tv_auth.text = "重新发送"
+
+        }
+    }
+
+    override fun cleanPwd() {
+        et_affpwd.setText("")
+        et_newpwd.setText("")
+    }
+
+    override fun registerSuccess() {
+        //注册成功
+        finish()
     }
 
     override fun createPresenter(): RegisterPresenter? {
         return RegisterPresenter(mvpView)
+    }
+
+    override fun onDestroy() {
+
+        mCountDownTimer.cancel()
+        super.onDestroy()
     }
 }

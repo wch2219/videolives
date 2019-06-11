@@ -6,11 +6,12 @@ import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.kottlinbaselib.mvp.presenter.BasePresenter
-import com.example.kottlinbaselib.mvp.view.IView
 import com.example.videolive.R
+import com.example.videolive.model.bean.LoginBean
 import com.example.videolive.model.utils.Contents
 import com.example.videolive.model.utils.GlideUtils
+import com.example.videolive.mvp.presenter.MineFragmentPresenter
+import com.example.videolive.mvp.view.MineFragmentView
 import com.example.videolive.ui.activitys.ChangePwdActivity
 import com.example.videolive.ui.activitys.MineInfoActivity
 import com.example.videolive.ui.adapters.MainFragmentAdapter
@@ -21,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_mine.*
 /**
  * 我的
  */
-class MineFragment : BaseFragment<BasePresenter<IView>, IView>(), View.OnClickListener {
+class MineFragment : BaseFragment<MineFragmentPresenter, MineFragmentView>(), View.OnClickListener,MineFragmentView {
 
 
     override fun getlayoutId(): Int {
@@ -35,7 +36,8 @@ class MineFragment : BaseFragment<BasePresenter<IView>, IView>(), View.OnClickLi
 
     override fun onResume() {
         super.onResume()
-//        tv_cleancache.text = String.format("缓存%s", CleanDataUtils.getTotalCacheSize(mContext))
+
+        presenter.getUserInfo()
     }
 
     override fun initData() {
@@ -96,5 +98,15 @@ class MineFragment : BaseFragment<BasePresenter<IView>, IView>(), View.OnClickLi
                     .showAtLocation(iv_head,Gravity.CENTER,0,0)
             }
         }
+    }
+
+    override fun userInfo(t: LoginBean.DataBean.InfoBean) {
+        GlideUtils.showHead(mContext,iv_head,t.avatar)
+        tv_nickname.text = t.user_nicename
+        tv_usersign.text = t.signature
+    }
+
+    override fun createPresenter(): MineFragmentPresenter {
+        return MineFragmentPresenter(mvpView)
     }
 }
