@@ -7,68 +7,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"/>
-    <LinearLayout
-            android:layout_gravity="right|center_vertical"
-            android:visibility="visible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:gravity="center_horizontal"
-    >
-        <RelativeLayout
-                android:layout_width="wrap_content"
-                android:id="@+id/rl_attent"
-                android:layout_height="wrap_content">
-            <com.example.kottlinbaselib.weight.CircleImageView
-                    android:layout_width="@dimen/dimen_50dp"
-                    android:id="@+id/iv_head"
-                    android:layout_height="@dimen/dimen_50dp"/>
-            <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/circle_big_red"
-                    android:src="@mipmap/add_icon"
-                    android:tint="@android:color/white"
-                    android:scaleType="centerInside"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="40dp"
-            />
-        </RelativeLayout>
 
-        <TextView
-                android:layout_width="50dp"
-                android:id="@+id/tv_like"
-                android:layout_height="50dp"
-                android:drawableTop="@mipmap/heart_icon"
-                android:layout_marginTop="16dp"
-                android:text="88.8w"
-                android:textColor="@android:color/white"
-                android:gravity="center"
-        />
-        <TextView
-                android:id="@+id/tv_message"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:drawableTop="@mipmap/msg_icon"
-                android:layout_marginTop="16dp"
-                android:text="66.8w"
-                android:textColor="@android:color/white"
-                android:gravity="center"
-        />
-        <TextView
-                android:id="@+id/tv_share"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:drawableTop="@mipmap/share_icon"
-                android:layout_marginTop="16dp"
-                android:text="99.8w"
-                android:textColor="@android:color/white"
-                android:gravity="center"
-        />
-    </LinearLayout>
     <ImageView
             android:id="@+id/img_play"
             android:layout_width="40dp"

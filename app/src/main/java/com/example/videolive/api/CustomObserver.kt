@@ -10,7 +10,7 @@ import com.example.videolive.model.bean.BaseResult
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
-abstract class CustomObserver<T>(view: IView) : Observer<T>, OnErrorCalBackListener {
+abstract class CustomObserver<T>(view: IView?) : Observer<T>, OnErrorCalBackListener {
 
     private var mIView: IView? = null
 

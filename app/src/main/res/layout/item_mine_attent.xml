@@ -28,7 +28,16 @@
                 android:text="昵称"
                 android:textColor="@color/text_66"
 
-        />
 
+
+
+        />
+        <TextView
+                android:id="@+id/tv_signdesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="昵称"
+                android:textSize="@dimen/text_dimens10"
+                android:textColor="@color/text_99"/>
     </LinearLayout>
 </LinearLayout>

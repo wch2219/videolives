@@ -21,7 +21,6 @@ class MineFragmentPresenter(view: MineFragmentView) : BasePresenter<MineFragment
         Model.getObservable(userInfo, object : CustomObserver<LoginBean>(mvpView) {
             override fun success(t: LoginBean) {
                 if (t.data.code == 0) {
-                    ToastUtil.show("登陆成功")
                     SPUtils.save(Contents.LoginInfo, JSON.toJSONString(t))
                     SPUtils.save(Contents.AVATAR, t.data.info[0].avatar)
 

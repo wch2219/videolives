@@ -17,6 +17,7 @@ import com.example.videolive.ui.activitys.MineInfoActivity
 import com.example.videolive.ui.adapters.MainFragmentAdapter
 import com.example.videolive.ui.base.BaseFragment
 import com.example.videolive.ui.views.popu.SharePopuWindow
+import com.hg.kotlin.api.ApiContents
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 /**
@@ -48,7 +49,7 @@ class MineFragment : BaseFragment<MineFragmentPresenter, MineFragmentView>(), Vi
         titles.add("收藏")
         titles.add("我的视频")
         fragments.add(MineAttentTabragment())
-        fragments.add(MineTabragment())
+        fragments.add(MineTabragment.instance(ApiContents.GetAttentionVideo)!!)
         fragments.add(MineTabragment())
         viewpage.adapter = MainFragmentAdapter(childFragmentManager,fragments,titles!!)
         tablayout.setupWithViewPager(viewpage)

@@ -42,7 +42,7 @@ public class GlideUtils {
 
     public static void showHead(Context context, ImageView imageView, Object url) {
         Glide.with(context).load(url)
-                .apply(new RequestOptions().error(R.mipmap.icon_userhead))
+                .apply(new RequestOptions().placeholder(R.mipmap.icon_userhead).error(R.mipmap.icon_userhead))
                 .into(imageView);
 
 

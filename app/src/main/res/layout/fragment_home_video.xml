@@ -6,6 +6,14 @@
                 android:layout_height="match_parent"
                 android:background="@android:color/black"
 >
+
+    <com.dueeeke.videoplayer.player.IjkVideoView
+            android:layout_width="match_parent"
+            android:id="@+id/ijkVideoView"
+            android:visibility="gone"
+            android:layout_height="match_parent">
+
+    </com.dueeeke.videoplayer.player.IjkVideoView>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:layout_width="match_parent"
             android:id="@+id/smartfresh"

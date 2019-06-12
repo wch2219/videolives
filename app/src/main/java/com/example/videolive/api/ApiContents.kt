@@ -15,6 +15,12 @@ class ApiContents {
         const val ForPWdAuthCode: String = PARENTPARAM + "Login.GetForgetCode"//找回密码验证码
         const val ForPWd: String = PARENTPARAM + "Login.UserFindPass"//找回密码
         const val GET_USERINFO: String = PARENTPARAM + "User.GetBaseInfo"//获取用户信息
+        const val GETVideoList: String = PARENTPARAM + "Video.GetVideoList"//获取视频列表
+        const val ATTENT: String = PARENTPARAM + "User.SetAttent"//关注
+        const val LIKE: String = PARENTPARAM + "Video.AddLike"//视频点赞
+        const val GetFollowsList: String = PARENTPARAM + "User.GetFollowsList"//关注列表
+        const val GetAttentionVideo: String = PARENTPARAM + "Video.GetAttentionVideo"//获取点赞视频列表
+        const val GetHomeVideo: String = PARENTPARAM + "Video.GetHomeVideo"//获取个人主页视频
     }
 
 }

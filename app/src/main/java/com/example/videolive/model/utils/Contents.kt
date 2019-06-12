@@ -16,6 +16,7 @@ class Contents {
         const val USER_NAME: String = "user_nicename"//用户昵称
         const val SIGNATURE: String = "signature" //用户签名
         const val UID: String = "uid" //用户Id
+        const val TOUID: String = "touid"//对方id
 
     }
 }

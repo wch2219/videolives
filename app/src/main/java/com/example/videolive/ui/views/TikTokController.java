@@ -2,34 +2,24 @@ package com.example.videolive.ui.views;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
-import android.view.*;
+import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.dueeeke.videoplayer.controller.BaseVideoController;
-import com.dueeeke.videoplayer.controller.MediaPlayerControl;
-import com.dueeeke.videoplayer.listener.OnVideoViewStateChangeListener;
 import com.dueeeke.videoplayer.player.IjkVideoView;
 import com.dueeeke.videoplayer.util.L;
-import com.example.kottlinbaselib.utils.ButtonUtils;
 import com.example.kottlinbaselib.utils.LogUtils;
-import com.example.kottlinbaselib.weight.CircleImageView;
 import com.example.videolive.R;
-import com.example.videolive.model.utils.Contents;
-import com.example.videolive.model.utils.GlideUtils;
 import com.example.videolive.ui.views.popu.SharePopuWindow;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 抖音
@@ -64,11 +54,11 @@ public class TikTokController extends BaseVideoController implements View.OnClic
     protected void initView() {
         super.initView();
         holder = new ViewHolder(mControllerView);
-        holder.mRlAttent.setOnClickListener(this);
-        holder.mTvLike.setOnClickListener(this);
-        holder.mTvMessage.setOnClickListener(this);
-        holder.mTvShare.setOnClickListener(this);
-        GlideUtils.showHead(getContext(), holder.mIvHead, Contents.userHeader);
+//        holder.mRlAttent.setOnClickListener(this);
+//        holder.mTvLike.setOnClickListener(this);
+//        holder.mTvMessage.setOnClickListener(this);
+//        holder.mTvShare.setOnClickListener(this);
+//        GlideUtils.showHead(getContext(), holder.mIvHead, Contents.userHeader);
     }
 
     public void setIjkVideoView(IjkVideoView ijkVideoView) {
@@ -173,12 +163,16 @@ public class TikTokController extends BaseVideoController implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_attent:
+                if (onClickListenter != null) {
+                    onClickListenter.attent();
+                }
 
-                Toast.makeText(getContext(), "关注", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tv_like:
+                if (onClickListenter != null) {
+                    onClickListenter.like();
+                }
 
-                Toast.makeText(getContext(), "点赞", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tv_message:
 
@@ -194,42 +188,66 @@ public class TikTokController extends BaseVideoController implements View.OnClic
 
         }
     }
+    private   OnClickListenter onClickListenter;
+    public   interface OnClickListenter{
+        void attent();
+        void like();
+    }
 
+    public void setOnClickListenter(OnClickListenter onClickListenter) {
+        this.onClickListenter = onClickListenter;
+    }
+    long downTime = 0;
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         float touchX = 0;
+
+        long upTime;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                touchX = event.getX();
-                long currTime = System.currentTimeMillis();
-                if (lastTouchTime == 0) {
-                    isShowPlay = true;
-                    lastTouchTime = currTime;
-                }else {
+                downTime = System.currentTimeMillis();
 
-                    if (currTime - lastTouchTime>400) {
-                        isShowPlay = true;
-                    }else {
-                        isShowPlay = false;
-                        handler.removeMessages(1);
-                    }
-                    lastTouchTime = currTime;
-                }
-                if (isShowPlay) {
 
-                    handler.sendEmptyMessageDelayed(1,400);
-                }
+//                touchX = event.getX();
+//                long currTime = System.currentTimeMillis();
+//                if (lastTouchTime == 0) {
+//                    isShowPlay = true;
+//                    lastTouchTime = currTime;
+//                }else {
+//
+//                    if (currTime - lastTouchTime>400) {
+//                        isShowPlay = true;
+//                    }else {
+//                        isShowPlay = false;
+//                        handler.removeMessages(1);
+//                    }
+//                    lastTouchTime = currTime;
+//                }
+//                if (isShowPlay) {
+//
+//                    handler.sendEmptyMessageDelayed(1,400);
+//                }
 
                 break;
             case MotionEvent.ACTION_UP:
+                upTime = System.currentTimeMillis();
+                LogUtils.Companion.I(upTime);
+                if ((upTime - downTime)<100&& upTime -downTime>20) {
+                    if (ijkVideoView.isPlaying()) {
 
+                        showPlay();
+                    } else {
+                        hintPlay();
+
+                    }
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
-                float moveX = event.getX();
-                if (moveX - touchX>20) {
-                    isShowPlay = false;
-                    ijkVideoView.seekTo(ijkVideoView.getCurrentPosition()+200);
-                }
+//                float moveX = event.getX();
+//                if (moveX - touchX>20) {
+//                    isShowPlay = false;
+//                    ijkVideoView.seekTo(ijkVideoView.getCurrentPosition()+200);
+//                }
 
                 break;
         }
@@ -321,21 +339,21 @@ public class TikTokController extends BaseVideoController implements View.OnClic
     private class ViewHolder {
         public View rootView;
         public ImageView mIvThumb;
-        public CircleImageView mIvHead;
-        public RelativeLayout mRlAttent;
-        public TextView mTvLike;
-        public TextView mTvMessage;
-        public TextView mTvShare;
+//        public CircleImageView mIvHead;
+//        public RelativeLayout mRlAttent;
+//        public TextView mTvLike;
+//        public TextView mTvMessage;
+//        public TextView mTvShare;
         public ImageView mImgPlay;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
             this.mIvThumb = (ImageView) rootView.findViewById(R.id.iv_thumb);
-            this.mIvHead = (CircleImageView) rootView.findViewById(R.id.iv_head);
-            this.mRlAttent = (RelativeLayout) rootView.findViewById(R.id.rl_attent);
-            this.mTvLike = (TextView) rootView.findViewById(R.id.tv_like);
-            this.mTvMessage = (TextView) rootView.findViewById(R.id.tv_message);
-            this.mTvShare = (TextView) rootView.findViewById(R.id.tv_share);
+//            this.mIvHead = (CircleImageView) rootView.findViewById(R.id.iv_head);
+//            this.mRlAttent = (RelativeLayout) rootView.findViewById(R.id.rl_attent);
+//            this.mTvLike = (TextView) rootView.findViewById(R.id.tv_like);
+//            this.mTvMessage = (TextView) rootView.findViewById(R.id.tv_message);
+//            this.mTvShare = (TextView) rootView.findViewById(R.id.tv_share);
             this.mImgPlay = (ImageView) rootView.findViewById(R.id.img_play);
         }
 
