@@ -1,6 +1,7 @@
 package com.example.videolive.ui.base;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
@@ -11,6 +12,7 @@ import com.example.kottlinbaselib.utils.AppManager;
 import com.example.kottlinbaselib.utils.CookbarUtils;
 import com.example.kottlinbaselib.utils.SPUtils;
 import com.example.videolive.model.utils.Contents;
+import com.example.videolive.ui.activitys.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +46,7 @@ public abstract class BaseActivity<P extends IPresenter, V extends IView>  exten
             }else {
                 SPUtils.Companion.remove(Contents.Token);
                 AppManager.getAppManager().finishAllActivity();
-//                startActivity(new Intent(mContext,SelectIdentityActivity.class).putExtra(Contents.HomeType,1));
+                startActivity(new Intent(mContext, LoginActivity.class));
             }
         }
     };

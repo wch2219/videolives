@@ -2,6 +2,8 @@ package com.example.videolive.model.utils
 
 class Contents {
     companion object {
+        const val PASS: String = "pass"
+        const val PASS2: String = "pass2"
         const val BaseUrl: String = "http://www.tlimit.top/api/public/appapi/listAllApis.php"
         const val userHeader: String = "http://sd.china.com.cn/uploadfile/2015/0505/20150505112828197.jpg"
         const val USER_LOGIN: String = "user_login"
@@ -17,6 +19,6 @@ class Contents {
         const val SIGNATURE: String = "signature" //用户签名
         const val UID: String = "uid" //用户Id
         const val TOUID: String = "touid"//对方id
-
+        const val OLDPASS: String = "oldpass"//旧密码
     }
 }

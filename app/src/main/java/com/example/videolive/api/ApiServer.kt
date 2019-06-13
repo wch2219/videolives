@@ -46,4 +46,8 @@ interface ApiServer {
     @FormUrlEncoded
     @POST  //获取关注视频 发布的视频
     fun getMineVideo(@Url api: String,@FieldMap map: MutableMap<String, Any?>):Observable<VideoListBean>
+
+    @FormUrlEncoded
+    @POST(ApiContents.UPDATEPASS)
+    fun changePwd(@FieldMap map: MutableMap<String, Any?>):Observable<LoginBean>
 }

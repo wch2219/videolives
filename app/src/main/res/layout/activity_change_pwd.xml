@@ -13,7 +13,6 @@
             android:layout_height="wrap_content"
             app:back_src="@mipmap/icon_back"
             app:title_text="@string/title_forgetpwd"
-            app:right_title="@string/aff"
             app:line_color="@color/havling"
             app:line_height="@dimen/dimen_5dp"
             app:right_title_color="@color/blue" />
@@ -96,6 +95,19 @@
                     android:hint="@string/placeinpuaffdpwd"
                     android:layout_marginLeft="@dimen/dimen_20dp"
                     android:layout_marginRight="@dimen/dimen_20dp"
+            />
+            <Button
+                    android:id="@+id/btn_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_40dp"
+                    android:text="确认"
+                    android:layout_marginLeft="@dimen/dimen_40dp"
+                    android:layout_marginRight="@dimen/dimen_40dp"
+                    android:layout_marginTop="@dimen/dimen_22dp"
+
+                    android:background="@drawable/shape_apphometab_bg_coloe"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_dimens14"
             />
         </LinearLayout>
     </ScrollView>

@@ -7,6 +7,7 @@ import com.example.kottlinbaselib.mvp.view.IView
 import com.example.kottlinbaselib.utils.BaseContents
 import com.example.kottlinbaselib.utils.LogUtils
 import com.example.videolive.model.bean.BaseResult
+import com.example.videolive.model.bean.InterBean
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
@@ -34,6 +35,8 @@ abstract class CustomObserver<T>(view: IView?) : Observer<T>, OnErrorCalBackList
             if (code == 400) {
                 mIView?.onError((t as BaseResult).msg)
             }else{
+
+
                 success(t)
             }
         }
@@ -42,33 +45,41 @@ abstract class CustomObserver<T>(view: IView?) : Observer<T>, OnErrorCalBackList
     protected abstract fun success(t: T)
 
     override fun onError(e: Throwable) {
-        mIView?.showLoading()
-        //       onError(400,"连接失败");
+        mIView?.dismissLoading()
+
+
+
     }
 
     override fun onError(code: Int, mess: String) {
 
         try {
             if (code == BaseContents.Code_200) {
-                if (!TextUtils.isEmpty(mess)) {
-
-
-                    val baseBean = JSON.parseObject<BaseResult>(mess, BaseResult::class.java)
-                    when (baseBean.ret) {
-                        ApiContents.AGAIN_LOGIN ->
-
-                            mIView?.onAgainLogin()
-                        ApiContents.SUCCESS -> {
-
-                        }
-                        else -> {
-                            mIView?.onError(baseBean.msg)
-                        }
-                    }
-                    return
-
-                    mIView?.dismissLoading()
-                }
+//                if (!TextUtils.isEmpty(mess)) {
+//
+//
+//                    val baseBean = JSON.parseObject<InterBean>(mess, InterBean::class.java)
+//                    when (baseBean.ret) {
+//                        ApiContents.AGAIN_LOGIN ->
+//
+//                            mIView?.onAgainLogin()
+//                        ApiContents.SUCCESS -> {
+//                                when(baseBean.data.code){
+//                                    ApiContents.AGAIN_LOGIN ->
+//
+//                                        mIView?.onAgainLogin()
+//
+//                                }
+//                        }
+//                        else -> {
+//                            mIView?.onError(baseBean.msg)
+//                        }
+//                    }
+//                    return
+//
+//                    mIView?.dismissLoading()
+//                }
+                mIView?.dismissLoading()
             } else {
 
                 mIView?.onError(mess)

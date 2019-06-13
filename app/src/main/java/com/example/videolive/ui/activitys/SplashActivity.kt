@@ -33,8 +33,12 @@ class SplashActivity : BaseActivity<BasePresenter<IView>, IView>() {
 
         override fun onFinish() {
 
-
-            startActivity(Intent(mContext, LoginActivity::class.java))
+             val token = SPUtils.getString(Contents.Token)
+            if (token.isNullOrEmpty()){
+                startActivity(Intent(mContext, LoginActivity::class.java))
+            }else{
+                startActivity(Intent(mContext, MainActivity::class.java))
+            }
 
             finish()
         }
