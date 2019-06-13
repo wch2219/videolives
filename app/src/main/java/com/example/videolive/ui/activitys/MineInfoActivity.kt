@@ -1,14 +1,15 @@
 package com.example.videolive.ui.activitys
 
+import android.app.Activity
 import android.content.Intent
 import android.view.Gravity
 import android.view.View
-import com.example.kottlinbaselib.mvp.presenter.BasePresenter
-import com.example.kottlinbaselib.mvp.view.IView
 import com.example.kottlinbaselib.utils.HideUtil
 import com.example.kottlinbaselib.utils.ToastUtil
 import com.example.videolive.R
 import com.example.videolive.model.utils.GlideUtils
+import com.example.videolive.mvp.presenter.MineInfoPresenter
+import com.example.videolive.mvp.view.MineInfoIView
 import com.example.videolive.ui.base.BaseActivity
 import com.example.videolive.ui.views.popu.EditPopuWindow
 import com.luck.picture.lib.PictureSelector
@@ -16,7 +17,7 @@ import com.luck.picture.lib.config.PictureMimeType
 import kotlinx.android.synthetic.main.activity_mine_info.*
 
 
-class MineInfoActivity : BaseActivity<BasePresenter<IView>,IView>(),View.OnClickListener {
+class MineInfoActivity : BaseActivity<MineInfoPresenter,MineInfoIView>(),View.OnClickListener,MineInfoIView {
     override fun getlayoutId(): Int {
         return R.layout.activity_mine_info
     }
@@ -43,6 +44,7 @@ class MineInfoActivity : BaseActivity<BasePresenter<IView>,IView>(),View.OnClick
                     .maxSelectNum(1)
                     .enableCrop(true)
                     .isGif(false)
+
                     .previewImage(true)
                     .withAspectRatio(1,1)
                     .imageSpanCount(4)
@@ -54,7 +56,7 @@ class MineInfoActivity : BaseActivity<BasePresenter<IView>,IView>(),View.OnClick
                     .instance()
                     .setAffOnClick(object :EditPopuWindow.OnAffClickListener{
                         override fun affClick(content: String) {
-                            HideUtil.hideSoftKeyboard(tv_nickname)
+                            HideUtil.hideSoftKeyboard(mContext as Activity)
                             tv_nickname.text = content
                                ToastUtil.show("修改成功")
                         }
@@ -69,7 +71,12 @@ class MineInfoActivity : BaseActivity<BasePresenter<IView>,IView>(),View.OnClick
             val list = PictureSelector.obtainMultipleResult(data)
             if (list.size != 0) {
                GlideUtils.showHead(mContext,iv_head,list[0].cutPath)
+                presenter.upavatar(list[0].cutPath)
             }
         }
+    }
+
+    override fun createPresenter(): MineInfoPresenter {
+        return MineInfoPresenter(mvpView)
     }
 }

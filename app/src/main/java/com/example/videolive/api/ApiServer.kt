@@ -3,6 +3,8 @@ package com.hg.kotlin.api
 import com.example.videolive.model.bean.*
 import com.example.videolive.model.utils.Contents
 import io.reactivex.Observable
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface ApiServer {
@@ -50,4 +52,13 @@ interface ApiServer {
     @FormUrlEncoded
     @POST(ApiContents.UPDATEPASS)
     fun changePwd(@FieldMap map: MutableMap<String, Any?>):Observable<LoginBean>
+
+
+    @FormUrlEncoded
+    @POST(ApiContents.SETVIDEO)//发布视频
+    fun upVideo(@FieldMap map: MutableMap<String, Any?>):Observable<AttentBean>?
+
+    @Multipart
+    @POST(ApiContents.UPDATEAVATAR) //上传头像
+    fun upAvatar(@Part(Contents.UID)uid: RequestBody, @Part(Contents.Token)token:RequestBody, @Part file: MultipartBody.Part):Observable<AttentBean>?
 }

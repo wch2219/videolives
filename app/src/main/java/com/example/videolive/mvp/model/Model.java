@@ -6,6 +6,7 @@ import com.example.kottlinbaselib.utils.LogUtils;
 import com.example.videolive.api.HttpManager;
 import com.hg.kotlin.api.ApiServer;
 import com.hg.kotlin.api.CustomObserver;
+import com.hg.kotlin.api.upload.FileUploadObserver;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -32,6 +33,20 @@ public class Model implements IModel {
 
         return observable;
     }
+
+ @SuppressLint("CheckResult")
+    public static <B>Observable<B> getObservableFile(Observable<B> observable, FileUploadObserver<B> customObserver) {
+
+        observable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(customObserver);
+
+        return observable;
+    }
+
+
+
 
     public static ApiServer getServer() {
         return HttpManager.getRequest(ApiServer.class);

@@ -105,6 +105,9 @@ class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),Ho
             .load(infos.get(position).thumb)
 
             .into(mTikTokController?.thumb!!)
+//        val mGestureDetector = GestureDetector(activity, OnDoubleClick())
+
+
         val parent = mIjkVideoView?.parent
         if (parent is FrameLayout) {
             (parent as FrameLayout).removeView(mIjkVideoView)
@@ -172,5 +175,7 @@ class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),Ho
     override fun createPresenter(): HomeVideoPresenter {
         return HomeVideoPresenter(mvpView)
     }
+
+
 
 }

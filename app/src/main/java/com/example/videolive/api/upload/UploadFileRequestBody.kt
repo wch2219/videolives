@@ -7,15 +7,22 @@ import okio.*
 import java.io.File
 import java.io.IOException
 
-class UploadFileRequestBody: RequestBody() {
+class UploadFileRequestBody(file: Any?, fileUploadObserver: FileUploadObserver<ResponseBody>): RequestBody() {
 
     private var mRequestBody: RequestBody?=null
     private var fileUploadObserver: FileUploadObserver<ResponseBody>?=null
+    init {
+        if (file is String) {
 
-    fun UploadFileRequestBody(file: File, fileUploadObserver: FileUploadObserver<ResponseBody>) {
-        this.mRequestBody = RequestBody.create(MediaType.parse("application/octet-stream"), file)
+            this.mRequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+        }else if (file is File){
+            this.mRequestBody = RequestBody.create(MediaType.parse("image/jpg"), file)
+//        this.mRequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+        }
+
         this.fileUploadObserver = fileUploadObserver
     }
+
 
     override fun contentType(): MediaType? {
         return mRequestBody?.contentType()

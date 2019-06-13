@@ -50,7 +50,8 @@ class MineFragment : BaseFragment<MineFragmentPresenter, MineFragmentView>(), Vi
         titles.add("我的视频")
         fragments.add(MineAttentTabragment())
         fragments.add(MineTabragment.instance(ApiContents.GetAttentionVideo)!!)
-        fragments.add(MineTabragment())
+        fragments.add(MineTabragment.instance(ApiContents.GetMyVideo)!!)
+
         viewpage.adapter = MainFragmentAdapter(childFragmentManager,fragments,titles!!)
         tablayout.setupWithViewPager(viewpage)
     }

@@ -1,9 +1,10 @@
-package com.example.administrator.douyin
+package com.example.videolive.ui.views
 
 import android.animation.*
 import android.content.Context
 import android.os.SystemClock
 import android.util.AttributeSet
+import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.LinearInterpolator
@@ -23,10 +24,12 @@ class Love2(context: Context) : RelativeLayout(context) {
     var num = floatArrayOf(-35f, -25f, 0f, 25f, 35f)
 
     //用来判断是否是连续的点击事件
-    private val mHits = LongArray(3)
-
+    private val mHits = LongArray(2)
+    private var mGestureDetector: GestureDetector?= null
     constructor(context: Context, attrs: AttributeSet) : this(context) {
         mContext = context
+        mGestureDetector = GestureDetector(context, OnDoubleClick())
+
     }
 
 
@@ -37,6 +40,9 @@ class Love2(context: Context) : RelativeLayout(context) {
 
         //用这个来判断是否是3击事件，判断数组中pos=2的点击事件的时间与数组中pos=0的点击事件的时间差值是否小于500，若是小于500认为是3击事件，这时需要绘制爱心图片
         if (mHits[0] >= (SystemClock.uptimeMillis() - 500)) {
+            if (likeListener != null) {
+                likeListener?.like()
+            }
             //点击是触发心形的图片add到整个view中，然后执行动画
 
             //有连续触摸的时候，创建一个展示心形的图片
@@ -91,12 +97,19 @@ class Love2(context: Context) : RelativeLayout(context) {
             })
 
         }
-
+        mGestureDetector?.onTouchEvent(event)
         return super.onTouchEvent(event)
 
     }
 
+     var likeListener: OnLikeListener?= null
 
+    interface OnLikeListener{
+       fun like()
+    }
+    fun setOnLikeListener(likeListener: OnLikeListener){
+        this.likeListener = likeListener
+    }
     fun scaleAni(view: View, propertyName: String, from: Float, to: Float, time: Long, delayTime: Long): ObjectAnimator {
         val ani: ObjectAnimator = ObjectAnimator.ofFloat(view, propertyName, from, to)
         ani.interpolator = LinearInterpolator()

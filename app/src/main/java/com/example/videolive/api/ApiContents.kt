@@ -22,6 +22,9 @@ class ApiContents {
         const val GetAttentionVideo: String = PARENTPARAM + "Video.GetAttentionVideo"//获取点赞视频列表
         const val GetHomeVideo: String = PARENTPARAM + "Video.GetHomeVideo"//获取个人主页视频
         const val UPDATEPASS: String = PARENTPARAM + "User.UpdatePass"//获取密码
+        const val SETVIDEO: String = PARENTPARAM + "Video.SetVideo"//上传短视频
+        const val GetMyVideo: String = PARENTPARAM + "Video.GetMyVideo"//上传短视频
+        const val UPDATEAVATAR: String = PARENTPARAM + "User.updateAvatar"//上传头像
     }
 
 }

@@ -58,12 +58,16 @@ class MineTabragment : BaseFragment<MineTabragmentPresenter,MineTabragmentIView>
     }
 
     override fun loadMore() {
-        presenter.getVideoData(arguments?.getString("api"),page++)
+        page++
+        presenter.getVideoData(arguments?.getString("api"),page)
     }
     override fun videoData(api: String, info: MutableList<VideoListBean.DataBean.InfoBean>) {
         if (arguments?.getString("api") == api) {
             infos.addAll(info)
             adapter?.notifyDataSetChanged()
+            if (infos.size <20) {
+                smartfresh.setEnableLoadMore(false)
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,7 +27,7 @@ import com.example.videolive.ui.views.popu.SharePopuWindow;
  * Created by xinyu on 2018/1/6.
  */
 
-public class TikTokController extends BaseVideoController implements View.OnClickListener {
+public class TikTokController extends BaseVideoController implements View.OnClickListener, GestureDetector.OnGestureListener {
 
     private IjkVideoView ijkVideoView;
     private ViewHolder holder;
@@ -52,19 +53,22 @@ public class TikTokController extends BaseVideoController implements View.OnClic
 
     @Override
     protected void initView() {
-        super.initView();
-        holder = new ViewHolder(mControllerView);
-//        holder.mRlAttent.setOnClickListener(this);
-//        holder.mTvLike.setOnClickListener(this);
-//        holder.mTvMessage.setOnClickListener(this);
-//        holder.mTvShare.setOnClickListener(this);
-//        GlideUtils.showHead(getContext(), holder.mIvHead, Contents.userHeader);
+            super.initView();
+            holder = new ViewHolder(mControllerView);
+    //        holder.mRlAttent.setOnClickListener(this);
+    //        holder.mTvLike.setOnClickListener(this);
+    //        holder.mTvMessage.setOnClickListener(this);
+    //        holder.mTvShare.setOnClickListener(this);
+    //        GlideUtils.showHead(getContext(), holder.mIvHead, Contents.userHeader);
+
     }
 
     public void setIjkVideoView(IjkVideoView ijkVideoView) {
         this.ijkVideoView = ijkVideoView;
 
+
     }
+
 
     @Override
     public void setPlayState(int playState) {
@@ -209,37 +213,39 @@ public class TikTokController extends BaseVideoController implements View.OnClic
 
 
 //                touchX = event.getX();
-//                long currTime = System.currentTimeMillis();
-//                if (lastTouchTime == 0) {
-//                    isShowPlay = true;
-//                    lastTouchTime = currTime;
-//                }else {
-//
-//                    if (currTime - lastTouchTime>400) {
-//                        isShowPlay = true;
-//                    }else {
-//                        isShowPlay = false;
-//                        handler.removeMessages(1);
-//                    }
-//                    lastTouchTime = currTime;
-//                }
-//                if (isShowPlay) {
-//
-//                    handler.sendEmptyMessageDelayed(1,400);
-//                }
+
 
                 break;
             case MotionEvent.ACTION_UP:
-                upTime = System.currentTimeMillis();
-                LogUtils.Companion.I(upTime);
-                if ((upTime - downTime)<100&& upTime -downTime>20) {
-                    if (ijkVideoView.isPlaying()) {
+//                upTime = System.currentTimeMillis();
+//                LogUtils.Companion.I(upTime);
+//                if ((upTime - downTime)<100&& upTime -downTime>20) {
+//                    if (ijkVideoView.isPlaying()) {
+//
+//                        showPlay();
+//                    } else {
+//                        hintPlay();
+//
+//                    }
+//                }
 
-                        showPlay();
-                    } else {
-                        hintPlay();
+                long currTime = System.currentTimeMillis();
+                if (lastTouchTime == 0) {
+                    isShowPlay = true;
+                    lastTouchTime = currTime;
+                }else {
 
+                    if (currTime - lastTouchTime>400) {
+                        isShowPlay = true;
+                    }else {
+                        isShowPlay = false;
+                        handler.removeMessages(1);
                     }
+                    lastTouchTime = currTime;
+                }
+                if (isShowPlay) {
+
+                    handler.sendEmptyMessageDelayed(1,400);
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -339,6 +345,7 @@ public class TikTokController extends BaseVideoController implements View.OnClic
     private class ViewHolder {
         public View rootView;
         public ImageView mIvThumb;
+        public Love2 love2;
 //        public CircleImageView mIvHead;
 //        public RelativeLayout mRlAttent;
 //        public TextView mTvLike;
@@ -355,7 +362,50 @@ public class TikTokController extends BaseVideoController implements View.OnClic
 //            this.mTvMessage = (TextView) rootView.findViewById(R.id.tv_message);
 //            this.mTvShare = (TextView) rootView.findViewById(R.id.tv_share);
             this.mImgPlay = (ImageView) rootView.findViewById(R.id.img_play);
+//            this.love2 = (Love2) rootView.findViewById(R.id.love);
         }
+    }
 
+    // 用户轻触触摸屏，由1个MotionEvent ACTION_DOWN触发
+    @Override
+    public boolean onDown(MotionEvent e) {
+        System.out.println("onDown");
+        return false;
+    }
+
+    /*
+     * 用户轻触触摸屏，尚未松开或拖动，由一个1个MotionEvent ACTION_DOWN触发
+     * 注意和onDown()的区别，强调的是没有松开或者拖动的状态 (单击没有松开或者移动时候就触发此事件，再触发onLongPress事件)
+     */
+    @Override
+    public void onShowPress(MotionEvent e) {
+        System.out.println("onShowPress");
+    }
+
+    // 用户（轻触触摸屏后）松开，由一个1个MotionEvent ACTION_UP触发
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        System.out.println("onSingleTopUp");
+        return false;
+    }
+
+    // 用户按下触摸屏，并拖动，由1个MotionEvent ACTION_DOWN, 多个ACTION_MOVE触发
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+                            float distanceY) {
+        System.out.println("onScroll");
+        return false;
+    }
+
+    // 用户长按触摸屏，由多个MotionEvent ACTION_DOWN触发
+    @Override
+    public void onLongPress(MotionEvent e) {
+        System.out.println("onLongPress");
+    }
+
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        return false;
     }
 }
