@@ -8,6 +8,7 @@ import com.example.videolive.model.bean.VideoListBean
 import com.example.videolive.model.utils.Contents
 import com.example.videolive.mvp.model.Model
 import com.example.videolive.mvp.view.HomeVideoIView
+import com.hg.kotlin.api.ApiContents
 import com.hg.kotlin.api.CustomObserver
 
 class HomeVideoPresenter(view:HomeVideoIView):BasePresenter<HomeVideoIView>(view) {
@@ -25,6 +26,9 @@ class HomeVideoPresenter(view:HomeVideoIView):BasePresenter<HomeVideoIView>(view
                 if (t.data.code == 0) {
                     mvpView.videoList(t.data.info)
                 }else{
+                    if (t.data.code == ApiContents.AGAIN_LOGIN) {
+                        mvpView.onAgainLogin()
+                    }
                     ToastUtil.show(t.data.msgX)
                 }
             }
@@ -43,6 +47,9 @@ class HomeVideoPresenter(view:HomeVideoIView):BasePresenter<HomeVideoIView>(view
                 if (t.data.code == 0) {
                     mvpView.attentSucc(position,t.data.info[0].isattent)
                 }else{
+                    if (t.data.code == ApiContents.AGAIN_LOGIN) {
+                        mvpView.onAgainLogin()
+                    }
                     ToastUtil.show(t.data.msgX)
                 }
             }
@@ -63,6 +70,9 @@ class HomeVideoPresenter(view:HomeVideoIView):BasePresenter<HomeVideoIView>(view
                 if (t.data.code == 0) {
                     mvpView.likeSucc(position,t.data.info[0].islike,t.data.info[0].likes)
                 }else{
+                    if (t.data.code == ApiContents.AGAIN_LOGIN) {
+                        mvpView.onAgainLogin()
+                    }
                     ToastUtil.show(t.data.msgX)
                 }
             }

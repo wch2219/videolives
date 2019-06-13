@@ -6,6 +6,7 @@ import com.example.videolive.model.bean.VideoListBean
 import com.example.videolive.model.utils.Contents
 import com.example.videolive.mvp.model.Model
 import com.example.videolive.mvp.view.MineTabragmentIView
+import com.hg.kotlin.api.ApiContents
 import com.hg.kotlin.api.CustomObserver
 
 class MineTabragmentPresenter(view:MineTabragmentIView):BasePresenter<MineTabragmentIView>(view) {
@@ -21,6 +22,10 @@ class MineTabragmentPresenter(view:MineTabragmentIView):BasePresenter<MineTabrag
             override fun success(t: VideoListBean) {
                 if (t.data.code == 0) {
                  mvpView.videoData(api,t.data.info)
+                }else{
+                    if (t.data.code == ApiContents.AGAIN_LOGIN) {
+                        mvpView.onAgainLogin()
+                    }
                 }
             }
         })

@@ -8,6 +8,7 @@ import com.example.videolive.model.bean.LoginBean
 import com.example.videolive.model.utils.Contents
 import com.example.videolive.mvp.model.Model
 import com.example.videolive.mvp.view.MineFragmentView
+import com.hg.kotlin.api.ApiContents
 import com.hg.kotlin.api.CustomObserver
 
 class MineFragmentPresenter(view: MineFragmentView) : BasePresenter<MineFragmentView>(view) {
@@ -30,6 +31,9 @@ class MineFragmentPresenter(view: MineFragmentView) : BasePresenter<MineFragment
                     mvpView.userInfo(t.data.info[0])
                 } else {
                     ToastUtil.show(t.data.msgX)
+                    if (t.data.code == ApiContents.AGAIN_LOGIN) {
+                        mvpView.onAgainLogin()
+                    }
                 }
             }
         })

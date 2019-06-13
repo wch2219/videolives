@@ -6,6 +6,7 @@ import com.example.videolive.model.bean.FollowListBean
 import com.example.videolive.model.utils.Contents
 import com.example.videolive.mvp.model.Model
 import com.example.videolive.mvp.view.MineAttentTabragmentIView
+import com.hg.kotlin.api.ApiContents
 import com.hg.kotlin.api.CustomObserver
 
 class MineAttentTabragmentPresenter(view:MineAttentTabragmentIView):BasePresenter<MineAttentTabragmentIView>(view) {
@@ -23,6 +24,10 @@ class MineAttentTabragmentPresenter(view:MineAttentTabragmentIView):BasePresente
             override fun success(t: FollowListBean) {
                 if (t.data.code == 0) {
                     mvpView.followData(t.data.info)
+                }else{
+                    if (t.data.code == ApiContents.AGAIN_LOGIN) {
+                        mvpView.onAgainLogin()
+                    }
                 }
             }
         })

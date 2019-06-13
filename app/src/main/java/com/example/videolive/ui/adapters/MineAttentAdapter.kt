@@ -17,8 +17,8 @@ class MineAttentAdapter(context: Context, data: MutableList<FollowListBean.DataB
     override fun bindData(holder: CommonViewHolder, data: FollowListBean.DataBean.InfoBean, position: Int) {
 
         GlideUtils.showHead(mContext, holder.getView(R.id.iv_head), data.avatar)
-        holder.setText(R.id.tv_nickname,data?.user_nicename)
-        holder.setText(R.id.tv_signdesc,data?.signature)
+        holder.setText(R.id.tv_nickname, data.user_nicename)
+        holder.setText(R.id.tv_signdesc, data.signature)
         holder.setOnClickListener(R.id.ll_root, View.OnClickListener {
 
             val intent = Intent(mContext, PoperInfoActivity::class.java)

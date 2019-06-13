@@ -35,9 +35,9 @@ abstract class CustomObserver<T>(view: IView?) : Observer<T>, OnErrorCalBackList
             if (code == 400) {
                 mIView?.onError((t as BaseResult).msg)
             }else{
-
-
                 success(t)
+
+
             }
         }
     }

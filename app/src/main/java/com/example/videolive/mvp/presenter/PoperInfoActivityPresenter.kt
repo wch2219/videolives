@@ -6,6 +6,7 @@ import com.example.videolive.model.bean.VideoListBean
 import com.example.videolive.model.utils.Contents
 import com.example.videolive.mvp.model.Model
 import com.example.videolive.mvp.view.PoperInfoActivityIView
+import com.hg.kotlin.api.ApiContents
 import com.hg.kotlin.api.CustomObserver
 
 class PoperInfoActivityPresenter(view:PoperInfoActivityIView):BasePresenter<PoperInfoActivityIView>(view) {
@@ -23,6 +24,10 @@ class PoperInfoActivityPresenter(view:PoperInfoActivityIView):BasePresenter<Pope
             override fun success(t: VideoListBean) {
                 if (t.data.code == 0) {
                     mvpView.VideoData(t.data.info)
+                }else{
+                    if (t.data.code == ApiContents.AGAIN_LOGIN) {
+                        mvpView.onAgainLogin()
+                    }
                 }
             }
         })
