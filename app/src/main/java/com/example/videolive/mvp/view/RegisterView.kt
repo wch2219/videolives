@@ -7,4 +7,5 @@ interface RegisterView :IView{
     fun authSuccess(t: AuthCodeBean)
     fun cleanPwd()
     fun registerSuccess()
+    fun setInvitation(user_agent_code: String?)
 }

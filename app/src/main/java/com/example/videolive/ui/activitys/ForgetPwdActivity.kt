@@ -51,7 +51,7 @@ class ForgetPwdActivity : BaseActivity<RegisterPresenter,RegisterView>(),Registe
         val affpwd = et_affpwd.text?.trim().toString()
 
 
-        presenter.register(phone,password,affpwd,authcode,ApiContents.ForPWd)
+        presenter.register(phone,password,affpwd,authcode,ApiContents.ForPWd,"")
     }
 
     @SuppressLint("SetTextI18n")
@@ -83,6 +83,10 @@ class ForgetPwdActivity : BaseActivity<RegisterPresenter,RegisterView>(),Registe
 
     override fun createPresenter(): RegisterPresenter? {
         return RegisterPresenter(mvpView)
+    }
+
+    override fun setInvitation(user_agent_code: String?) {
+
     }
 
     override fun onDestroy() {

@@ -1,5 +1,6 @@
 package com.example.videolive.ui.adapters
 
+import android.Manifest
 import android.content.Context
 import android.view.Gravity
 import android.view.View
@@ -8,10 +9,12 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.kottlinbaselib.holder.CommonViewHolder
 import com.example.kottlinbaselib.mvp.base.BaseRecyclerAdapter
+import com.example.kottlinbaselib.utils.PermissionUtils
 import com.example.videolive.R
 import com.example.videolive.model.bean.VideoListBean
 import com.example.videolive.model.utils.GlideUtils
 import com.example.videolive.ui.views.popu.SharePopuWindow
+import com.hg.kotlin.api.ApiContents
 
 
 class HomeAdapter(context: Context, info: List<VideoListBean.DataBean.InfoBean>, layoutId: Int) :
@@ -36,9 +39,20 @@ class HomeAdapter(context: Context, info: List<VideoListBean.DataBean.InfoBean>,
         holder.setText(R.id.tv_message,data.comments)
         holder.setText(R.id.tv_share,data.shares)
         holder.setOnClickListener(R.id.tv_share, View.OnClickListener {
-            SharePopuWindow(mContext)
-                .instance()
-                .showAtLocation(tv_like, Gravity.CENTER, 0, 0)
+
+            if (PermissionUtils.checkReadPermission(
+                    arrayOf(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    ), 100, mContext
+                )
+            ){
+                SharePopuWindow(mContext)
+                    .instance()
+                    .setUrl(ApiContents.ShareUrl)
+                    .showAtLocation(tv_like, Gravity.CENTER, 0, 0)
+            }
+
         })
 
           holder.setOnClickListener(R.id.rl_attent, View.OnClickListener {

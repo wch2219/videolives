@@ -1,19 +1,27 @@
 package com.example.videolive.ui.activitys
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.CountDownTimer
+import android.telephony.TelephonyManager
 import android.view.View
+import androidx.core.app.ActivityCompat
+import com.example.kottlinbaselib.utils.PermissionUtils
 import com.example.videolive.R
 import com.example.videolive.model.bean.AuthCodeBean
 import com.example.videolive.mvp.presenter.RegisterPresenter
 import com.example.videolive.mvp.view.RegisterView
 import com.example.videolive.ui.base.BaseActivity
 import com.hg.kotlin.api.ApiContents
-
 import kotlinx.android.synthetic.main.activity_register.*
+import java.util.*
 
+@Suppress("DEPRECATED_IDENTITY_EQUALS")
 class RegisterActivity : BaseActivity<RegisterPresenter, RegisterView>(),View.OnClickListener,RegisterView {
     var sending:Boolean = false
+    var invitationcode:String ?= null
     override fun getlayoutId(): Int {
         return R.layout.activity_register
     }
@@ -27,6 +35,41 @@ class RegisterActivity : BaseActivity<RegisterPresenter, RegisterView>(),View.On
 
     override fun initData() {
 
+
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (PermissionUtils.checkReadPermission(
+                arrayOf(
+                    Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE
+                ), 101, mContext
+            )
+        ) {
+
+            getDevNumber()
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getDevNumber() {
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_PHONE_STATE
+            ) !== PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_PHONE_STATE), 101)
+            return
+        }
+        //获取手机号码
+        val tm = this.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+//        val deviceid = tm.getDeviceId()//获取智能设备唯一编号
+        var dev = tm.deviceSoftwareVersion
+        presenter.getInvitation(dev)
     }
 
     override fun initListener() {
@@ -55,7 +98,7 @@ class RegisterActivity : BaseActivity<RegisterPresenter, RegisterView>(),View.On
         val affpwd = et_affpwd.text?.trim().toString()
 
 
-        presenter.register(phone, password, affpwd, authcode, ApiContents.REGISTER)
+        presenter.register(phone, password, affpwd, authcode, ApiContents.REGISTER,invitationcode)
     }
 
     @SuppressLint("SetTextI18n")
@@ -85,6 +128,58 @@ class RegisterActivity : BaseActivity<RegisterPresenter, RegisterView>(),View.On
         finish()
     }
 
+
+    override fun setInvitation(user_agent_code: String?) {
+        this.invitationcode = user_agent_code
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode != 101) {
+            return
+        }
+
+        if (grantResults.size > 0) {
+            val deniedPermissionList = ArrayList<String>()
+            for (i in grantResults.indices) {
+                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                    deniedPermissionList.add(permissions[i])
+                }
+            }
+
+            if (deniedPermissionList.isEmpty()) {
+                //已经全部授权
+                getDevNumber()
+            } else {
+
+                //勾选了对话框中”Don’t ask again”的选项, 返回false
+                for (deniedPermission in deniedPermissionList) {
+                    var flag = false
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                        flag = shouldShowRequestPermissionRationale(deniedPermission)
+                    }
+                    if (!flag) {
+                        //拒绝授权
+                        PermissionUtils.setPermission(R.string.permissoncontent,mContext)
+                        return
+                    }
+                }
+                //拒绝授权
+                val permission = arrayOfNulls<String>(deniedPermissionList.size)
+                for (i in deniedPermissionList.indices) {
+                    permission[i] = deniedPermissionList[i]
+                }
+
+                ActivityCompat.requestPermissions(this, permission, 101)
+
+            }
+
+
+        }
+
+
+    }
     override fun createPresenter(): RegisterPresenter? {
         return RegisterPresenter(mvpView)
     }

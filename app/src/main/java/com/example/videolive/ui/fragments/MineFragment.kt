@@ -1,11 +1,13 @@
 package com.example.videolive.ui.fragments
 
 
+import android.Manifest
 import android.content.Intent
 import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.kottlinbaselib.utils.PermissionUtils
 import com.example.videolive.R
 import com.example.videolive.model.bean.LoginBean
 import com.example.videolive.model.utils.Contents
@@ -62,6 +64,7 @@ class MineFragment : BaseFragment<MineFragmentPresenter, MineFragmentView>(), Vi
         tv_mineinfo.setOnClickListener(this::onClick)
         tv_cleancache.setOnClickListener(this::onClick)
         iv_share.setOnClickListener(this::onClick)
+        iv_exit.setOnClickListener(this::onClick)
 
     }
 
@@ -82,9 +85,18 @@ class MineFragment : BaseFragment<MineFragmentPresenter, MineFragmentView>(), Vi
 
             }
             R.id.tv_cleancache -> {
-                SharePopuWindow(mContext!!)
-                    .instance()
-                    .showAtLocation(iv_head,Gravity.CENTER,0,0)
+                if (PermissionUtils.checkReadPermission(
+                        arrayOf(
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+
+                        ), 100, mContext
+                    )
+                ){
+                    SharePopuWindow(mContext)
+                        .instance()
+                        .setUrl(ApiContents.ShareUrl)
+                        .showAtLocation(iv_share, Gravity.CENTER, 0, 0)
+                }
 
 
             }
@@ -95,9 +107,21 @@ class MineFragment : BaseFragment<MineFragmentPresenter, MineFragmentView>(), Vi
             }
             R.id.iv_share ->{
 
-                SharePopuWindow(mContext!!)
-                    .instance()
-                    .showAtLocation(iv_head,Gravity.CENTER,0,0)
+                if (PermissionUtils.checkReadPermission(
+                        arrayOf(
+                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        ), 100, mContext
+                    )
+                ){
+                    SharePopuWindow(mContext)
+                        .instance()
+                        .setUrl(ApiContents.ShareUrl)
+                        .showAtLocation(iv_share, Gravity.CENTER, 0, 0)
+                }
+            }
+            R.id.iv_exit->{
+                mvpView.onAgainLogin()
             }
         }
     }

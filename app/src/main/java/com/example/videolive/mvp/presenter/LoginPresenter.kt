@@ -30,6 +30,9 @@ class LoginPresenter(view: LoginView) : BasePresenter<LoginView>(view) {
         map[Contents.USER_LOGIN] = mobile
         map[Contents.USER_PASS] = pwd
         val login = Model.getServer().login(map)
+
+
+
         Model.getObservable(login, object : CustomObserver<LoginBean>(mvpView) {
             override fun success(t: LoginBean) {
                 if (t.data.code == 0) {

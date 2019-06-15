@@ -25,6 +25,8 @@ class ApiContents {
         const val SETVIDEO: String = PARENTPARAM + "Video.SetVideo"//上传短视频
         const val GetMyVideo: String = PARENTPARAM + "Video.GetMyVideo"//上传短视频
         const val UPDATEAVATAR: String = PARENTPARAM + "User.updateAvatar"//上传头像
+        const val INVITATION: String = PARENTPARAM + "Login.getInvitation"//获取邀请码
+        const val ShareUrl: String = "http://anhui.sinaimg.cn/2013/0314/U8438P1276DT20130314110904.png"//分享二维码链接地址
     }
 
 }

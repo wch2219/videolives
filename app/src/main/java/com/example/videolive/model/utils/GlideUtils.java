@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.kottlinbaselib.utils.LogUtils;
+import com.example.kottlinbaselib.utils.ToastUtil;
 import com.example.videolive.R;
 import com.example.videolive.api.download.DownloadHelper;
 import com.example.videolive.api.download.FileDownloadCallback;
@@ -99,7 +100,7 @@ public class GlideUtils {
         mSavePicListener = savePicListener;
         // 插入图库
         long time = new Date().getTime();
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/YaopaiDown";
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/down";
         final File file = new File(path);
         if (!file.exists()) {
             file.mkdir();
@@ -112,7 +113,9 @@ public class GlideUtils {
             mSavePicListener.saveSuccess(new File(fileUrl));
             fos.flush();
             fos.close();
-            Toast.makeText(context, "保存成功，请到相册查看", Toast.LENGTH_SHORT).show();
+            // 发送广播，通知刷新图库的显示
+            context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + fileUrl)));
+            ToastUtil.Companion.show("保存成功，请到相册查看");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -124,7 +127,7 @@ public class GlideUtils {
         mSavePicListener = savePicListener;
         // 插入图库
         long time = new Date().getTime();
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/YaopaiDown";
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/down";
         final File file = new File(path);
         if (!file.exists()) {
             file.mkdir();

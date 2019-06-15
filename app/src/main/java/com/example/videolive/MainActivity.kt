@@ -6,14 +6,12 @@ import android.content.Intent
 import android.view.GestureDetector
 import android.view.MotionEvent
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Transformations.map
 import com.dueeeke.videoplayer.player.VideoViewManager
 import com.example.kottlinbaselib.mvp.presenter.BasePresenter
 import com.example.kottlinbaselib.mvp.view.IView
 import com.example.kottlinbaselib.utils.PermissionUtils
 import com.example.kottlinbaselib.utils.SPUtils
 import com.example.videolive.model.bean.AttentBean
-import com.example.videolive.model.bean.InterBean
 import com.example.videolive.model.utils.Contents
 import com.example.videolive.mvp.model.Model
 import com.example.videolive.ui.activitys.VideoPreViewActivity
@@ -24,7 +22,6 @@ import com.example.videolive.ui.views.OnDoubleClick
 import com.hg.kotlin.api.CustomObserver
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureMimeType
-import com.luck.picture.lib.config.PictureMimeType.ofVideo
 import kotlinx.android.synthetic.main.activity_main.*
 import ui.fragments.HomeFragment
 
@@ -33,7 +30,8 @@ class MainActivity : BaseActivity<BasePresenter<IView>, IView>() {
     override fun getlayoutId(): Int {
         return R.layout.activity_main
     }
-    private var mGestureDetector:GestureDetector ?= null
+
+    private var mGestureDetector: GestureDetector? = null
     override fun initView() {
         fragments.add(HomeFragment())
 //        fragments.add(ShareFragment())
@@ -49,7 +47,15 @@ class MainActivity : BaseActivity<BasePresenter<IView>, IView>() {
     }
 
     override fun initData() {
+        if (PermissionUtils.checkReadPermission(
+                arrayOf(
+                    Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO,Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE
+                ), 100, mContext
+            )
+        ){
 
+        }
     }
 
     override fun initListener() {
@@ -59,18 +65,23 @@ class MainActivity : BaseActivity<BasePresenter<IView>, IView>() {
         id_camera.setOnClickListener {
 
 
-            //            if (PermissionUtils.checkReadPermission(arrayOf(Manifest.permission.CAMERA,Manifest.permission.RECORD_AUDIO,
-//                    Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE),100,mContext)) {
-//                PictureSelector.create(this@MainActivity)
-//                    .openGallery(PictureMimeType.ofVideo())
-////                    .openCamera(PictureMimeType.ofVideo())
-//                    .previewVideo(true)
-//                    .videoMaxSecond(10)
-//                    .forResult(1)
-//            }
+            if (PermissionUtils.checkReadPermission(
+                    arrayOf(
+                        Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE
+                    ), 100, mContext
+                )
+            ) {
+                PictureSelector.create(this@MainActivity)
+                    .openGallery(PictureMimeType.ofVideo())
+//                    .openCamera(PictureMimeType.ofVideo())
+                    .previewVideo(true)
+                    .videoMaxSecond(10)
+                    .forResult(1)
+            }
 
 
-            upVideo()
+//            upVideo()
         }
 
     }

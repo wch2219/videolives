@@ -3,6 +3,7 @@ package com.example.videolive.mvp.presenter
 import com.example.kottlinbaselib.mvp.presenter.BasePresenter
 import com.example.kottlinbaselib.utils.ToastUtil
 import com.example.videolive.model.bean.AuthCodeBean
+import com.example.videolive.model.bean.InvitationBean
 import com.example.videolive.model.bean.RegisterBean
 import com.example.videolive.model.utils.Contents
 import com.example.videolive.model.utils.MD5Util
@@ -15,14 +16,14 @@ class RegisterPresenter(view: RegisterView) : BasePresenter<RegisterView>(view) 
 
     fun getAuth(phone: String, forPWdAuthCode: String) {
         val sign = MD5Util.getMD5("mobile=$phone&${ApiContents.SALT}")
-        val observable = Model.getServer().getAuth(forPWdAuthCode,phone,sign)
+        val observable = Model.getServer().getAuth(forPWdAuthCode, phone, sign)
         Model.getObservable(observable, object : CustomObserver<AuthCodeBean>(mvpView) {
             override fun success(t: AuthCodeBean) {
                 if (t.data.code == 1002) {
 
                     ToastUtil.show("发送成功,请注意查收短信")
                     mvpView.authSuccess(t)
-                }else{
+                } else {
                     ToastUtil.show(t.data.msgX)
                 }
 
@@ -35,7 +36,8 @@ class RegisterPresenter(view: RegisterView) : BasePresenter<RegisterView>(view) 
         pwd: String,
         affpwd: String,
         authcode: String,
-        api: String
+        api: String,
+        invitationcode: String?
     ) {
 
         if (phone.isNullOrEmpty()) {
@@ -68,17 +70,33 @@ class RegisterPresenter(view: RegisterView) : BasePresenter<RegisterView>(view) 
         map[Contents.USER_PASS] = pwd
         map[Contents.USER_PASS2] = pwd
         map[Contents.CODE] = authcode
-        val observable = Model.getServer().register(api,map)
+        if (!invitationcode.isNullOrEmpty()) {
+            map["invitationcode"] = invitationcode
+        }
+        val observable = Model.getServer().register(api, map)
         Model.getObservable(observable, object : CustomObserver<RegisterBean>(mvpView) {
             override fun success(t: RegisterBean) {
                 if (t.data.code == 0) {
                     mvpView.registerSuccess()
                     ToastUtil.show("操作成功")
-                }else{
+                } else {
 
                     ToastUtil.show(t.data.msgX)
                 }
 
+            }
+        })
+    }
+
+    fun getInvitation(dev: String) {
+        val observable = Model.getServer().getInvitation(dev)
+        Model.getObservable(observable, object : CustomObserver<InvitationBean>(mvpView) {
+            override fun success(t: InvitationBean) {
+                if (t.data.code == 0) {
+                    mvpView.setInvitation(t.data.info.user_agent_code)
+                }else{
+
+                }
             }
         })
     }

@@ -61,4 +61,7 @@ interface ApiServer {
     @Multipart
     @POST(ApiContents.UPDATEAVATAR) //上传头像
     fun upAvatar(@Part(Contents.UID)uid: RequestBody, @Part(Contents.Token)token:RequestBody, @Part file: MultipartBody.Part):Observable<AttentBean>?
+
+    @POST(ApiContents.INVITATION)//获取邀请码
+    fun getInvitation(@Query("identifier")dev: String):Observable<InvitationBean>?
 }
