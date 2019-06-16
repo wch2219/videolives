@@ -43,10 +43,18 @@ class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),Ho
     }
 
     override fun initData() {
+//        val tikTokVideoList = DataUtils.getTikTokVideoList()
+//        for (videoBean in tikTokVideoList) {
+//           val info:VideoListBean.DataBean.InfoBean = VideoListBean.DataBean.InfoBean()
+//            info.href = videoBean.url
+//            info.thumb = videoBean.thumb
+//            infos.add(info)
+//        }
 
         adapter = HomeAdapter(mContext!!, infos, R.layout.item_home)
         rv_list.adapter = adapter
         mIjkVideoView = IjkVideoView(mContext!!)
+        mIjkVideoView?.setPlayOnMobileNetwork(true)
         mIjkVideoView?.setLooping(true)
         mTikTokController = TikTokController(mContext!!)
         mTikTokController?.setIjkVideoView(mIjkVideoView)

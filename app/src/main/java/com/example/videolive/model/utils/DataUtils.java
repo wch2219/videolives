@@ -12,6 +12,10 @@ public class DataUtils {
      * 抖音演示数据
      */
     public static List<VideoBean> getTikTokVideoList() {
+
+
+
+
         List<VideoBean> videoList = new ArrayList<>();
         videoList.add(new VideoBean("",
                 "https://p9.pstatp.com/large/4c87000639ab0f21c285.jpeg",
@@ -20,6 +24,8 @@ public class DataUtils {
         videoList.add(new VideoBean("",
                 "https://p1.pstatp.com/large/4bea0014e31708ecb03e.jpeg",
                 "https://aweme.snssdk.com/aweme/v1/play/?video_id=374e166692ee4ebfae030ceae117a9d0&line=0&ratio=720p&media_type=4&vr_type=0"));
+
+
 
         videoList.add(new VideoBean("",
                 "https://p1.pstatp.com/large/4bb500130248a3bcdad0.jpeg",

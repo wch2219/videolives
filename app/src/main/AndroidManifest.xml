@@ -67,6 +67,7 @@
         </activity>
         <activity
                 android:name=".ui.activitys.LoginActivity"
+                android:launchMode="singleTop"
                 android:screenOrientation="portrait">
 
         </activity>
