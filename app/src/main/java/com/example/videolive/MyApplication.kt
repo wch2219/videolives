@@ -5,7 +5,6 @@ import android.app.Application
 import android.os.Bundle
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
-import com.dueeeke.videoplayer.util.L
 import com.example.kottlinbaselib.utils.AppManager
 import com.example.kottlinbaselib.utils.NetworkUtils
 import com.example.kottlinbaselib.utils.SPUtils
@@ -51,7 +50,7 @@ class MyApplication : MultiDexApplication() {
                 mCount++
                 if (!mFront) {
                     mFront = true
-                    L.e("AppContext------->处于前台")
+
 //                    AppConfig.getInstance().isFrontGround = true
                 }
             }
@@ -68,7 +67,7 @@ class MyApplication : MultiDexApplication() {
                 mCount--
                 if (mCount == 0) {
                     mFront = false
-                    L.e("AppContext------->处于后台")
+
 //                    AppConfig.getInstance().isFrontGround = false
                 }
             }

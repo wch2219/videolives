@@ -6,7 +6,6 @@ import android.content.Intent
 import android.view.GestureDetector
 import android.view.MotionEvent
 import androidx.fragment.app.Fragment
-import com.dueeeke.videoplayer.player.VideoViewManager
 import com.example.kottlinbaselib.mvp.presenter.BasePresenter
 import com.example.kottlinbaselib.mvp.view.IView
 import com.example.kottlinbaselib.utils.PermissionUtils
@@ -100,9 +99,7 @@ class MainActivity : BaseActivity<BasePresenter<IView>, IView>() {
     }
 
     override fun onBackPressed() {
-        if (!VideoViewManager.instance().onBackPressed()) {
-            super.onBackPressed()
-        }
+
     }
 
     private fun upVideo() {

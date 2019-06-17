@@ -73,7 +73,7 @@ dependencies {
     implementation 'com.github.dueeeke.dkplayer:dkplayer-ui:2.5.7'
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
     //金山播放和推流SDK
-    api 'com.ksyun.media:libksylive-java:3.0.4'
+//    api 'com.ksyun.media:libksylive-java:3.0.4'
 //    api 'com.ksyun.media:libksylive-armv7a:3.0.4'
 
     //视频完整版引入
