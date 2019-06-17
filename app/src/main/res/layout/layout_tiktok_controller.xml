@@ -6,7 +6,7 @@
             android:id="@+id/iv_thumb"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
+            android:scaleType="center"/>
 
     <ImageView
             android:id="@+id/img_play"
@@ -20,9 +20,18 @@
     />
 
     <!--<com.example.videolive.ui.views.Love2-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:id="@+id/love"-->
-            <!--android:visibility="gone"-->
-            <!--android:layout_height="match_parent">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:id="@+id/love"-->
+    <!--android:visibility="gone"-->
+    <!--android:layout_height="match_parent">-->
     <!--</com.example.videolive.ui.views.Love2>-->
+
+    <SeekBar
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:id="@+id/seekBar"
+            android:max="100"
+
+            android:layout_marginBottom="@dimen/dimen_80dp"
+            android:layout_height="wrap_content"/>
 </FrameLayout>

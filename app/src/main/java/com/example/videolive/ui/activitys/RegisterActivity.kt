@@ -1,11 +1,8 @@
 package com.example.videolive.ui.activitys
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.CountDownTimer
-import android.telephony.TelephonyManager
 import android.view.View
 import androidx.core.app.ActivityCompat
 import com.example.kottlinbaselib.utils.PermissionUtils
@@ -21,7 +18,7 @@ import java.util.*
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class RegisterActivity : BaseActivity<RegisterPresenter, RegisterView>(),View.OnClickListener,RegisterView {
     var sending:Boolean = false
-    var invitationcode:String ?= null
+
     override fun getlayoutId(): Int {
         return R.layout.activity_register
     }
@@ -40,36 +37,26 @@ class RegisterActivity : BaseActivity<RegisterPresenter, RegisterView>(),View.On
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (PermissionUtils.checkReadPermission(
-                arrayOf(
-                    Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE
-                ), 101, mContext
-            )
-        ) {
+    override fun setInvitation(user_agent_code: String?) {
 
-            getDevNumber()
-        }
     }
 
     @SuppressLint("MissingPermission")
     private fun getDevNumber() {
-
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_PHONE_STATE
-            ) !== PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_PHONE_STATE), 101)
-            return
-        }
-        //获取手机号码
-        val tm = this.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-//        val deviceid = tm.getDeviceId()//获取智能设备唯一编号
-        var dev = tm.deviceSoftwareVersion
-        presenter.getInvitation(dev)
+//
+//        if (ActivityCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.READ_PHONE_STATE
+//            ) !== PackageManager.PERMISSION_GRANTED
+//        ) {
+//            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_PHONE_STATE), 101)
+//            return
+//        }
+//        //获取手机号码
+//        val tm = this.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+////        val deviceid = tm.getDeviceId()//获取智能设备唯一编号
+//        var dev = tm.deviceSoftwareVersion
+//        presenter.getInvitation(dev)
     }
 
     override fun initListener() {
@@ -96,7 +83,7 @@ class RegisterActivity : BaseActivity<RegisterPresenter, RegisterView>(),View.On
         val authcode = et_authcode.text.trim().toString()
         val password = et_newpwd.text?.trim().toString()
         val affpwd = et_affpwd.text?.trim().toString()
-
+        val  invitationcode = et_Invitacode.text?.trim().toString()
 
         presenter.register(phone, password, affpwd, authcode, ApiContents.REGISTER,invitationcode)
     }
@@ -129,9 +116,6 @@ class RegisterActivity : BaseActivity<RegisterPresenter, RegisterView>(),View.On
     }
 
 
-    override fun setInvitation(user_agent_code: String?) {
-        this.invitationcode = user_agent_code
-    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)

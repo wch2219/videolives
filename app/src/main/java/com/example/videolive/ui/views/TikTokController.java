@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,12 +23,15 @@ import com.example.kottlinbaselib.utils.LogUtils;
 import com.example.videolive.R;
 import com.example.videolive.ui.views.popu.SharePopuWindow;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * 抖音
  * Created by xinyu on 2018/1/6.
  */
 
-public class TikTokController extends BaseVideoController implements View.OnClickListener, GestureDetector.OnGestureListener {
+public class TikTokController extends BaseVideoController implements View.OnClickListener, GestureDetector.OnGestureListener,SeekBar.OnSeekBarChangeListener {
 
     private IjkVideoView ijkVideoView;
     private ViewHolder holder;
@@ -55,6 +59,7 @@ public class TikTokController extends BaseVideoController implements View.OnClic
     protected void initView() {
             super.initView();
             holder = new ViewHolder(mControllerView);
+            holder.seekBar .setOnSeekBarChangeListener(this);
     //        holder.mRlAttent.setOnClickListener(this);
     //        holder.mTvLike.setOnClickListener(this);
     //        holder.mTvMessage.setOnClickListener(this);
@@ -152,16 +157,54 @@ public class TikTokController extends BaseVideoController implements View.OnClic
         @Override
         public void handleMessage(Message msg) {
 
-            if (onPlayProgressListener != null&&isPlaying) {
+            if (onPlayProgressListener != null&&isPlaying&& !isonTouchSeek) {
+
+                long currentPosition = ijkVideoView.getCurrentPosition();
+                long duration = ijkVideoView.getDuration();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss");
+                String format = dateFormat.format(new Date(currentPosition));
+                String durationformat = dateFormat.format(new Date(duration));
+                LogUtils.Companion.I(format);
+                LogUtils.Companion.I(durationformat);
+
+                float aa = ((float)ijkVideoView.getCurrentPosition()/(float) ijkVideoView.getDuration());
+                LogUtils.Companion.I(aa);
+                holder.seekBar.setProgress((int) (ijkVideoView.getCurrentPosition()/ijkVideoView.getDuration()*100));
+
                 onPlayProgressListener.progress(ijkVideoView.getCurrentPosition());
+
+                sendEmptyMessageDelayed(1,20);
+            }else {
                 sendEmptyMessageDelayed(1,20);
             }
         }
     };
 
+
+
     Thread currThrend = null;
+    private boolean isonTouchSeek = false;
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+        isonTouchSeek = true;
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        isonTouchSeek = false;
+//        seekBar.setProgress(seekBar.getProgress());
+        int pos = (int) (seekBar.getProgress()/100*ijkVideoView.getDuration());
+        LogUtils.Companion.I(seekBar.getProgress());
+        LogUtils.Companion.I(pos);
+        ijkVideoView.seekTo(pos);
 
 
+    }
 
     @Override
     public void onClick(View v) {
@@ -293,6 +336,7 @@ public class TikTokController extends BaseVideoController implements View.OnClic
             @Override
             public void onAnimationEnd(Animation animation) {
                 holder.mImgPlay.setVisibility(GONE);
+                holder.seekBar.setVisibility(GONE);
                 ijkVideoView.start();
             }
 
@@ -316,6 +360,7 @@ public class TikTokController extends BaseVideoController implements View.OnClic
             @Override
             public void onAnimationEnd(Animation animation) {
                 holder.mImgPlay.setVisibility(VISIBLE);
+                holder.seekBar.setVisibility(VISIBLE);
                 ijkVideoView.pause();
             }
 
@@ -352,6 +397,7 @@ public class TikTokController extends BaseVideoController implements View.OnClic
 //        public TextView mTvMessage;
 //        public TextView mTvShare;
         public ImageView mImgPlay;
+        public SeekBar seekBar;
 
         public ViewHolder(View rootView) {
             this.rootView = rootView;
@@ -362,6 +408,7 @@ public class TikTokController extends BaseVideoController implements View.OnClic
 //            this.mTvMessage = (TextView) rootView.findViewById(R.id.tv_message);
 //            this.mTvShare = (TextView) rootView.findViewById(R.id.tv_share);
             this.mImgPlay = (ImageView) rootView.findViewById(R.id.img_play);
+            this.seekBar = (SeekBar) rootView.findViewById(R.id.seekBar);
 //            this.love2 = (Love2) rootView.findViewById(R.id.love);
         }
     }

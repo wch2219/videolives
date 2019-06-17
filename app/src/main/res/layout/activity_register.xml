@@ -145,6 +145,35 @@
                     android:textSize="@dimen/text_dimens14"
                     android:theme="@style/MyEditText1" />
 
+
+               <TextView
+                    style="@style/PingFangMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_20dp"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:text="@string/placeinpuInvita"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_dimens14" />
+
+             <EditText
+                    android:id="@+id/et_Invitacode"
+                    style="@style/PingFangLight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_20dp"
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:layout_marginRight="@dimen/dimen_20dp"
+                    android:hint="@string/placeinpuInvita"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:paddingLeft="@dimen/dimen_5dp"
+                    android:textSize="@dimen/text_dimens14"
+                    android:theme="@style/MyEditText1" />
+
+
+
+
             <Button
                     android:id="@+id/btn_register"
                     android:layout_width="match_parent"

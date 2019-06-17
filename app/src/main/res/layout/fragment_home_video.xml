@@ -80,16 +80,5 @@
     </RelativeLayout>
 
 
-    <SeekBar
-
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/dimen_40dp"
-            android:progress="50"
-            android:paddingStart="0dp"
-            android:paddingRight="0dp"
-            style="@style/CustomSeekbarStyle"
-            android:id="@+id/seekBar"/>
 
 </RelativeLayout>

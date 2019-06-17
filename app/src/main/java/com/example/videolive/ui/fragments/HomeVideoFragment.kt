@@ -1,12 +1,12 @@
 package com.example.videolive.ui.fragments
 
 
+import android.net.Uri
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.recyclerview.widget.OrientationHelper
 import com.bumptech.glide.Glide
-import com.dueeeke.videoplayer.player.IjkVideoView
-import com.example.kottlinbaselib.utils.LogUtils
 import com.example.videolive.R
 import com.example.videolive.interfac.OnViewPagerListener
 import com.example.videolive.model.bean.VideoListBean
@@ -16,6 +16,7 @@ import com.example.videolive.ui.adapters.HomeAdapter
 import com.example.videolive.ui.base.BaseFragment
 import com.example.videolive.ui.views.TikTokController
 import com.example.videolive.ui.views.ViewPagerLayoutManager
+import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import kotlinx.android.synthetic.main.fragment_home_video.*
 
 
@@ -23,7 +24,7 @@ class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),Ho
     var adapter: HomeAdapter? = null
     var manager: ViewPagerLayoutManager? = null
     private var mCurrentPosition: Int = 0
-    private var mIjkVideoView: IjkVideoView? = null
+    private var mIjkVideoView: StandardGSYVideoPlayer? = null
     private var mTikTokController: TikTokController? = null
     private var isRelease:Boolean = true//是否重置播放器
     private var page:Int = 1
@@ -53,18 +54,19 @@ class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),Ho
 
         adapter = HomeAdapter(mContext!!, infos, R.layout.item_home)
         rv_list.adapter = adapter
-        mIjkVideoView = IjkVideoView(mContext!!)
-        mIjkVideoView?.setPlayOnMobileNetwork(true)
+        mIjkVideoView = StandardGSYVideoPlayer(mContext!!)
+//        mIjkVideoView?.setPlayOnMobileNetwork(true)
         mIjkVideoView?.setLooping(true)
+
         mTikTokController = TikTokController(mContext!!)
-        mTikTokController?.setIjkVideoView(mIjkVideoView)
-        mIjkVideoView?.setVideoController(mTikTokController)
+//        mTikTokController?.setIjkVideoView(mIjkVideoView)
+//        mIjkVideoView?.setVideoController(mTikTokController)
         mTikTokController!!.setOnPlayProgressListener { currPro ->
-            LogUtils.I("当前进度:%d"+currPro.toInt())
-            seekBar.max = mIjkVideoView?.duration?.toInt()!!
-            seekBar.progress = currPro.toInt()
+//            LogUtils.I("当前进度:%d"+currPro.toInt())
+
 
         }
+
         presenter.getVideoList(page)
     }
 
@@ -113,7 +115,7 @@ class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),Ho
             .load(infos.get(position).thumb)
 
             .into(mTikTokController?.thumb!!)
-//        val mGestureDetector = GestureDetector(activity, OnDoubleClick())
+
 
 
         val parent = mIjkVideoView?.parent
@@ -121,10 +123,21 @@ class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),Ho
             (parent as FrameLayout).removeView(mIjkVideoView)
         }
         frameLayout.addView(mIjkVideoView)
-        mIjkVideoView?.setUrl(infos.get(position).href)
-        seekBar.max = mIjkVideoView?.duration?.toInt()!!
-        mIjkVideoView?.setScreenScale(IjkVideoView.SCREEN_SCALE_CENTER_CROP)
-        mIjkVideoView?.start()
+        mIjkVideoView?.setUp(infos[position].href,true,"")
+        //增加封面
+        val imageView = ImageView(mContext)
+        imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+        imageView.setImageURI(Uri.parse(infos[position].thumb))
+        mIjkVideoView?.thumbImageView = imageView
+        //设置返回键
+        mIjkVideoView?.backButton?.visibility = View.GONE
+        //是否可以滑动调整
+        mIjkVideoView?.isLooping = true
+        mIjkVideoView?.setIsTouchWiget(true)
+        mIjkVideoView?.startPlayLogic()
+//        seekBar.max = mIjkVideoView?.duration?.toInt()!!
+//        mIjkVideoView?.setScreenScale(IjkVideoView.SCREEN_SCALE_DEFAULT)
+//        mIjkVideoView?.start()
     }
 
 
@@ -133,7 +146,7 @@ class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),Ho
         if (isVisibleToUser) {
 
         } else {
-            mIjkVideoView?.pause()
+            mIjkVideoView?.onVideoPause()
         }
     }
 
@@ -167,7 +180,7 @@ class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),Ho
 
     override fun onPause() {
         super.onPause()
-        mIjkVideoView?.pause()
+        mIjkVideoView?.onVideoPause()
     }
 
     override fun onResume() {

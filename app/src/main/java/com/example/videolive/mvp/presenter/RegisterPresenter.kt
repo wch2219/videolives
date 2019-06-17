@@ -3,7 +3,6 @@ package com.example.videolive.mvp.presenter
 import com.example.kottlinbaselib.mvp.presenter.BasePresenter
 import com.example.kottlinbaselib.utils.ToastUtil
 import com.example.videolive.model.bean.AuthCodeBean
-import com.example.videolive.model.bean.InvitationBean
 import com.example.videolive.model.bean.RegisterBean
 import com.example.videolive.model.utils.Contents
 import com.example.videolive.model.utils.MD5Util
@@ -88,16 +87,16 @@ class RegisterPresenter(view: RegisterView) : BasePresenter<RegisterView>(view) 
         })
     }
 
-    fun getInvitation(dev: String) {
-        val observable = Model.getServer().getInvitation(dev)
-        Model.getObservable(observable, object : CustomObserver<InvitationBean>(mvpView) {
-            override fun success(t: InvitationBean) {
-                if (t.data.code == 0) {
-                    mvpView.setInvitation(t.data.info.user_agent_code)
-                }else{
-
-                }
-            }
-        })
-    }
+//    fun getInvitation(dev: String) {
+//        val observable = Model.getServer().getInvitation(dev)
+//        Model.getObservable(observable, object : CustomObserver<InvitationBean>(mvpView) {
+//            override fun success(t: InvitationBean) {
+//                if (t.data.code == 0) {
+//                    mvpView.setInvitation(t.data.info.user_agent_code)
+//                }else{
+//
+//                }
+//            }
+//        })
+//    }
 }

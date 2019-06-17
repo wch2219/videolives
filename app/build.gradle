@@ -68,20 +68,16 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation project(':kottlinbaselib')
-    //完整版引入
-    //必选，可兼容市面上绝大部分设备
-    implementation 'com.github.dueeeke.dkplayer:dkplayer-java:2.5.7'
-    implementation 'com.github.dueeeke.dkplayer:dkplayer-armv7a:2.5.7'
-    implementation 'com.github.dueeeke.dkplayer:dkplayer-armv5:2.5.7'
-    implementation 'com.github.dueeeke.dkplayer:dkplayer-arm64:2.5.7'
-    implementation 'com.github.dueeeke.dkplayer:dkplayer-x86:2.5.7'
-    implementation 'com.github.dueeeke.dkplayer:dkplayer-x86_64:2.5.7'
+
     //可选，里面包含StandardVideoController的实现
     implementation 'com.github.dueeeke.dkplayer:dkplayer-ui:2.5.7'
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
     //金山播放和推流SDK
     api 'com.ksyun.media:libksylive-java:3.0.4'
-    api 'com.ksyun.media:libksylive-armv7a:3.0.4'
+//    api 'com.ksyun.media:libksylive-armv7a:3.0.4'
+
+    //视频完整版引入
+    implementation 'com.shuyu:GSYVideoPlayer:6.0.3'
     //socket.io
     api('io.socket:socket.io-client:1.0.0') {
         exclude group: 'org.json', module: 'json'
