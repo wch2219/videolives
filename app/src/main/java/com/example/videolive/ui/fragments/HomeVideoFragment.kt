@@ -1,15 +1,19 @@
 package com.example.videolive.ui.fragments
 
 
+import android.app.AlertDialog
 import android.net.Uri
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.recyclerview.widget.OrientationHelper
 import com.bumptech.glide.Glide
+import com.example.kottlinbaselib.utils.SPUtils
 import com.example.videolive.R
 import com.example.videolive.interfac.OnViewPagerListener
 import com.example.videolive.model.bean.VideoListBean
+import com.example.videolive.model.utils.Contents
 import com.example.videolive.mvp.presenter.HomeVideoPresenter
 import com.example.videolive.mvp.view.HomeVideoIView
 import com.example.videolive.ui.adapters.HomeAdapter
@@ -20,17 +24,18 @@ import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import kotlinx.android.synthetic.main.fragment_home_video.*
 
 
-class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),HomeVideoIView,HomeAdapter.OnClickListenter {
+class HomeVideoFragment : BaseFragment<HomeVideoPresenter, HomeVideoIView>(), HomeVideoIView,
+    HomeAdapter.OnClickListenter {
     var adapter: HomeAdapter? = null
     var manager: ViewPagerLayoutManager? = null
     private var mCurrentPosition: Int = 0
     private var mIjkVideoView: StandardGSYVideoPlayer? = null
     private var mTikTokController: TikTokController? = null
-    private var isRelease:Boolean = true//是否重置播放器
-    private var page:Int = 1
+    private var isRelease: Boolean = true//是否重置播放器
+    private var page: Int = 1
     private var infos: MutableList<VideoListBean.DataBean.InfoBean> = mutableListOf()
     override fun getlayoutId(): Int {
-       return R.layout.fragment_home_video
+        return R.layout.fragment_home_video
     }
 
     override fun initView(rootView: View) {
@@ -62,11 +67,12 @@ class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),Ho
 //        mTikTokController?.setIjkVideoView(mIjkVideoView)
 //        mIjkVideoView?.setVideoController(mTikTokController)
         mTikTokController!!.setOnPlayProgressListener { currPro ->
-//            LogUtils.I("当前进度:%d"+currPro.toInt())
+            //            LogUtils.I("当前进度:%d"+currPro.toInt())
 
 
         }
 
+        presenter.getUserInfo()
         presenter.getVideoList(page)
     }
 
@@ -76,7 +82,7 @@ class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),Ho
 //自动播放第一条
                 if (isRelease) {
                     startPlay(0)
-                }else{
+                } else {
                     isRelease = true
                 }
             }
@@ -84,13 +90,13 @@ class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),Ho
             override fun onPageRelease(isNext: Boolean, position: Int) {
                 if (mCurrentPosition == position && isRelease) {
                     mIjkVideoView?.release()
-                }else{
+                } else {
                     isRelease = true
                 }
             }
 
             override fun onPageSelected(position: Int, isBottom: Boolean) {
-                if (mCurrentPosition == position){
+                if (mCurrentPosition == position) {
 
                     return
                 }
@@ -109,21 +115,19 @@ class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),Ho
     }
 
     private fun startPlay(position: Int) {
+
+
         val itemView = rv_list.getChildAt(0)
         val frameLayout = itemView.findViewById<FrameLayout>(R.id.container)
         Glide.with(this)
-            .load(infos.get(position).thumb)
-
+            .load(infos[position].thumb)
             .into(mTikTokController?.thumb!!)
-
-
-
         val parent = mIjkVideoView?.parent
         if (parent is FrameLayout) {
             (parent as FrameLayout).removeView(mIjkVideoView)
         }
         frameLayout.addView(mIjkVideoView)
-        mIjkVideoView?.setUp(infos[position].href,true,"")
+        mIjkVideoView?.setUp(infos[position].href, true, "")
         //增加封面
         val imageView = ImageView(mContext)
         imageView.scaleType = ImageView.ScaleType.CENTER_CROP
@@ -135,9 +139,26 @@ class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),Ho
         mIjkVideoView?.isLooping = true
         mIjkVideoView?.setIsTouchWiget(true)
         mIjkVideoView?.startPlayLogic()
+
+        val can_play_video = SPUtils.getInt(Contents.CANPLAYVIDEONUM)
+        if (can_play_video <= 0) {
+            //todo
+            val view = LayoutInflater.from(mContext).inflate(R.layout.dialog_layout, null)
+            val builder = AlertDialog.Builder(mContext)
+            builder.setView(view)
+            builder.setCancelable(false)
+            builder.show()
+
+
+
+
+            return
+        }
+        SPUtils.save(Contents.CANPLAYVIDEONUM, can_play_video - 1)
 //        seekBar.max = mIjkVideoView?.duration?.toInt()!!
 //        mIjkVideoView?.setScreenScale(IjkVideoView.SCREEN_SCALE_DEFAULT)
 //        mIjkVideoView?.start()
+        presenter.upVideoPlayWatchNum()
     }
 
 
@@ -157,12 +178,12 @@ class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),Ho
 
     override fun attent(position: Int) {
         this.isRelease = false
-        presenter.attent(position,infos[position].userinfo.id)
+        presenter.attent(position, infos[position].userinfo.id)
     }
 
     override fun like(position: Int) {
         this.isRelease = false
-        presenter.like(position,infos[position].id)
+        presenter.like(position, infos[position].id)
     }
 
     override fun attentSucc(position: Int, isattent: String?) {
@@ -196,7 +217,6 @@ class HomeVideoFragment :  BaseFragment<HomeVideoPresenter, HomeVideoIView>(),Ho
     override fun createPresenter(): HomeVideoPresenter {
         return HomeVideoPresenter(mvpView)
     }
-
 
 
 }

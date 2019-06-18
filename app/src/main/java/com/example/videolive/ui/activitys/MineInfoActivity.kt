@@ -1,10 +1,7 @@
 package com.example.videolive.ui.activitys
 
-import android.app.Activity
 import android.content.Intent
-import android.view.Gravity
 import android.view.View
-import com.example.kottlinbaselib.utils.HideUtil
 import com.example.kottlinbaselib.utils.ToastUtil
 import com.example.videolive.R
 import com.example.videolive.model.utils.GlideUtils
@@ -56,12 +53,12 @@ class MineInfoActivity : BaseActivity<MineInfoPresenter,MineInfoIView>(),View.On
                     .instance()
                     .setAffOnClick(object :EditPopuWindow.OnAffClickListener{
                         override fun affClick(content: String) {
-                            HideUtil.hideSoftKeyboard(mContext as Activity)
+
                             tv_nickname.text = content
                                ToastUtil.show("修改成功")
                         }
                     })
-                    .showAtLocation(tv_nickname, Gravity.CENTER,0,0)
+
             }
         }
     }

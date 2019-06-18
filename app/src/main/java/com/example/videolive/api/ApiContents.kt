@@ -7,8 +7,8 @@ class ApiContents {
         const val SUCCESS: Int = 200 //成功
         const val AGAIN_LOGIN: Int = 700 //登录失效重新登录
         val Token: String = "token"
-        const val BaseUrl: String = "http://www.tlimit.top/api/public/"
-        private const val PARENTPARAM = "?service="
+        const val BaseUrl: String = "http://www.tlimit.top/"
+        private const val PARENTPARAM = "api/public/?service="
         const val REGISTER: String = PARENTPARAM + "Login.UserReg"//注册
         const val GETCODE: String = PARENTPARAM + "Login.GetCode"//获取验证码
         const val LOGIN: String = PARENTPARAM + "Login.UserLogin"//登陸
@@ -26,7 +26,8 @@ class ApiContents {
         const val GetMyVideo: String = PARENTPARAM + "Video.GetMyVideo"//上传短视频
         const val UPDATEAVATAR: String = PARENTPARAM + "User.updateAvatar"//上传头像
         const val INVITATION: String = PARENTPARAM + "Login.getInvitation"//获取邀请码
-        const val ShareUrl: String = "http://anhui.sinaimg.cn/2013/0314/U8438P1276DT20130314110904.png"//分享二维码链接地址
+        const val ShareUrl: String = BaseUrl + "videoShare/"//分享二维码链接地址
+        const val UPDATEVVIEWVIDEOS: String = PARENTPARAM + "User.updatevViewVideos"//更新观看视频次数
     }
 
 }

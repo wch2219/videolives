@@ -51,6 +51,7 @@
 
     <ImageView android:layout_width="@dimen/dimen_40dp"
                 android:id="@+id/id_camera"
+               android:visibility="gone"
                android:src="@mipmap/icon_homecenter"
                android:layout_alignParentBottom="true"
 

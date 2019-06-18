@@ -20,5 +20,8 @@ class Contents {
         const val UID: String = "uid" //用户Id
         const val TOUID: String = "touid"//对方id
         const val OLDPASS: String = "oldpass"//旧密码
+        const val MAXIVIDEOMUM: String = "maxivideomum"
+        const val CANPLAYVIDEONUM: String = "CANPLAYVIDEONUM"
+        const val INVITATIONCODE: String = "invitationcode"
     }
 }

@@ -24,7 +24,7 @@ interface ApiServer {
 
     @FormUrlEncoded
     @POST(ApiContents.GET_USERINFO)
-    fun getUserInfo(@FieldMap map: MutableMap<String, Any?>): Observable<LoginBean>?
+    fun getUserInfo(@FieldMap map: MutableMap<String, Any?>): Observable<UserInfoBean>?
 
     @FormUrlEncoded
     @POST(ApiContents.GETVideoList)

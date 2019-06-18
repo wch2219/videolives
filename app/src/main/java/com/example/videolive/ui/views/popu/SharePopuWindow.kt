@@ -14,8 +14,10 @@ import android.widget.PopupWindow
 import com.example.kottlinbaselib.holder.CommonViewHolder
 import com.example.kottlinbaselib.utils.CookbarUtils
 import com.example.kottlinbaselib.utils.PermissionUtils
+import com.example.kottlinbaselib.utils.SPUtils
 import com.example.kottlinbaselib.utils.ToastUtil
 import com.example.videolive.R
+import com.example.videolive.model.utils.Contents
 import com.example.videolive.model.utils.GlideUtils
 import com.example.videolive.model.utils.QRCode
 import com.hg.kotlin.api.ApiContents
@@ -51,9 +53,10 @@ class SharePopuWindow(context: Context) : PopupWindow(context), View.OnClickList
     }
 
     fun setUrl(url: String): SharePopuWindow {
-        viewHolder?.setText(com.example.videolive.R.id.tv_sharelink, "链接地址: $url")
+        viewHolder?.setText(com.example.videolive.R.id.tv_sharelink, """邀请码: ${SPUtils.getString(Contents.INVITATIONCODE)}""")
         val logo = BitmapFactory.decodeResource(context?.resources, R.mipmap.logo, null)
-        createQRCode = QRCode.createQRCodeWithLogo5(url,500,logo)
+        createQRCode = QRCode.createQRCodeWithLogo5("""$url?code=${SPUtils.getString(Contents.INVITATIONCODE)}""",500,logo)
+
         viewHolder?.getView<ImageView>(com.example.videolive.R.id.iv_code)?.setImageBitmap(createQRCode)
         return this
     }

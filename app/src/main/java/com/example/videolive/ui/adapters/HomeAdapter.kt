@@ -1,7 +1,10 @@
 package com.example.videolive.ui.adapters
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
@@ -10,9 +13,12 @@ import com.bumptech.glide.Glide
 import com.example.kottlinbaselib.holder.CommonViewHolder
 import com.example.kottlinbaselib.mvp.base.BaseRecyclerAdapter
 import com.example.kottlinbaselib.utils.PermissionUtils
+import com.example.kottlinbaselib.utils.SPUtils
 import com.example.videolive.R
 import com.example.videolive.model.bean.VideoListBean
+import com.example.videolive.model.utils.Contents
 import com.example.videolive.model.utils.GlideUtils
+import com.example.videolive.ui.activitys.LoginActivity
 import com.example.videolive.ui.views.popu.SharePopuWindow
 import com.hg.kotlin.api.ApiContents
 
@@ -37,7 +43,7 @@ class HomeAdapter(context: Context, info: List<VideoListBean.DataBean.InfoBean>,
 
         tv_like.text = data.likes
         holder.setText(R.id.tv_message,data.comments)
-        holder.setText(R.id.tv_share,data.shares)
+//        holder.setText(R.id.tv_share,data.shares)
         holder.setOnClickListener(R.id.tv_share, View.OnClickListener {
 
             if (PermissionUtils.checkReadPermission(
@@ -47,6 +53,14 @@ class HomeAdapter(context: Context, info: List<VideoListBean.DataBean.InfoBean>,
                     ), 100, mContext
                 )
             ){
+
+                if (TextUtils.isEmpty(SPUtils.getString(Contents.INVITATIONCODE))) {
+                    mContext.startActivity(Intent(mContext,LoginActivity::class.java))
+                    (mContext as Activity).finish()
+                    return@OnClickListener
+                }
+
+
                 SharePopuWindow(mContext)
                     .instance()
                     .setUrl(ApiContents.ShareUrl)

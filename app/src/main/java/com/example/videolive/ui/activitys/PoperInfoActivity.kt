@@ -21,6 +21,7 @@ class PoperInfoActivity : BaseActivity<PoperInfoActivityPresenter, PoperInfoActi
     }
 
     override fun initView() {
+        isBlack = true
         initRefreshLayout(smartfresh)
         smartfresh.setEnableLoadMore(true)
         smartfresh.setEnableRefresh(false)

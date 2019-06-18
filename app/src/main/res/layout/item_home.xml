@@ -72,7 +72,7 @@
                 android:layout_height="50dp"
                 android:drawableTop="@mipmap/share_icon"
                 android:layout_marginTop="16dp"
-                android:text="99.8w"
+
                 android:textColor="@android:color/white"
                 android:gravity="center"
         />

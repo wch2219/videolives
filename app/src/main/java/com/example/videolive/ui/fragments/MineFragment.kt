@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.kottlinbaselib.utils.PermissionUtils
 import com.example.videolive.R
-import com.example.videolive.model.bean.LoginBean
+import com.example.videolive.model.bean.UserInfoBean
 import com.example.videolive.model.utils.Contents
 import com.example.videolive.model.utils.GlideUtils
 import com.example.videolive.mvp.presenter.MineFragmentPresenter
@@ -126,7 +126,7 @@ class MineFragment : BaseFragment<MineFragmentPresenter, MineFragmentView>(), Vi
         }
     }
 
-    override fun userInfo(t: LoginBean.DataBean.InfoBean) {
+    override fun userInfo(t: UserInfoBean.DataBean.InfoBean) {
         GlideUtils.showHead(mContext,iv_head,t.avatar)
         tv_nickname.text = t.user_nicename
         tv_usersign.text = t.signature
