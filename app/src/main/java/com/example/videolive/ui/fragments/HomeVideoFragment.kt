@@ -1,10 +1,12 @@
 package com.example.videolive.ui.fragments
 
 
-import android.app.AlertDialog
+import android.app.Dialog
 import android.net.Uri
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.recyclerview.widget.OrientationHelper
@@ -20,6 +22,8 @@ import com.example.videolive.ui.adapters.HomeAdapter
 import com.example.videolive.ui.base.BaseFragment
 import com.example.videolive.ui.views.TikTokController
 import com.example.videolive.ui.views.ViewPagerLayoutManager
+import com.example.videolive.ui.views.popu.SharePopuWindow
+import com.hg.kotlin.api.ApiContents
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import kotlinx.android.synthetic.main.fragment_home_video.*
 
@@ -34,6 +38,7 @@ class HomeVideoFragment : BaseFragment<HomeVideoPresenter, HomeVideoIView>(), Ho
     private var isRelease: Boolean = true//是否重置播放器
     private var page: Int = 1
     private var infos: MutableList<VideoListBean.DataBean.InfoBean> = mutableListOf()
+
     override fun getlayoutId(): Int {
         return R.layout.fragment_home_video
     }
@@ -138,22 +143,44 @@ class HomeVideoFragment : BaseFragment<HomeVideoPresenter, HomeVideoIView>(), Ho
         //是否可以滑动调整
         mIjkVideoView?.isLooping = true
         mIjkVideoView?.setIsTouchWiget(true)
-        mIjkVideoView?.startPlayLogic()
+
 
         val can_play_video = SPUtils.getInt(Contents.CANPLAYVIDEONUM)
         if (can_play_video <= 0) {
             //todo
             val view = LayoutInflater.from(mContext).inflate(R.layout.dialog_layout, null)
-            val builder = AlertDialog.Builder(mContext)
-            builder.setView(view)
-            builder.setCancelable(false)
-            builder.show()
+            val builder = Dialog(mContext)
+            builder?.setContentView(view)
+            builder?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            val btn_close = view.findViewById<Button>(R.id.btn_close)
+            btn_close.setOnClickListener {
+                builder?.dismiss()
+                presenter.getUserInfo()
+
+                val url = SharePopuWindow(mContext)
+                    .instance()
+                    .setUrl(ApiContents.ShareUrl)
+                url.showAtLocation(rv_list, Gravity.CENTER, 0, 0)
+                url.setOnDismissListener {
+                    startPlay(position)
+                }
+
+//                builder.dismiss()
+//                SharePopuWindow(mContext)
+//                    .instance()
+//
+//                    .setUrl(ApiContents.ShareUrl)
+//                    .showAtLocation(rv_list, Gravity.CENTER, 0, 0)
+            }
+            builder?.setCancelable(false)
+            builder?.show()
 
 
 
 
             return
         }
+        mIjkVideoView?.startPlayLogic()
         SPUtils.save(Contents.CANPLAYVIDEONUM, can_play_video - 1)
 //        seekBar.max = mIjkVideoView?.duration?.toInt()!!
 //        mIjkVideoView?.setScreenScale(IjkVideoView.SCREEN_SCALE_DEFAULT)
@@ -161,6 +188,14 @@ class HomeVideoFragment : BaseFragment<HomeVideoPresenter, HomeVideoIView>(), Ho
         presenter.upVideoPlayWatchNum()
     }
 
+    override fun userInfo() {
+//        val can_play_video = SPUtils.getInt(Contents.CANPLAYVIDEONUM)
+//
+//        if (builder != null&&can_play_video>0) {
+//            builder?.dismiss()
+//            builder = null
+//        }
+    }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)

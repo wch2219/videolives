@@ -108,7 +108,7 @@ class HomeVideoPresenter(view:HomeVideoIView):BasePresenter<HomeVideoIView>(view
         map[Contents.UID] = SPUtils.getString(Contents.UID)
         map[Contents.Token] = SPUtils.getString(Contents.Token)
         val userInfo = Model.getServer().getUserInfo(map)
-        Model.getObservable(userInfo, object : CustomObserver<UserInfoBean>(mvpView) {
+        Model.getObservable(userInfo, object : CustomObserver<UserInfoBean>(null) {
             override fun success(t: UserInfoBean) {
                 if (t.data.code == 0) {
                     SPUtils.save(Contents.LoginInfo, JSON.toJSONString(t))
@@ -119,6 +119,7 @@ class HomeVideoPresenter(view:HomeVideoIView):BasePresenter<HomeVideoIView>(view
                     SPUtils.save(Contents.MAXIVIDEOMUM,t.data.info[0].view_videos)//最大视频数量
                     SPUtils.save(Contents.CANPLAYVIDEONUM,t.data.info[0].can_view_videos)//能播放的视频数量
                     SPUtils.save(Contents.INVITATIONCODE,t.data.info[0].invitationcode)//邀请码
+                    mvpView.userInfo()
                 } else {
                     ToastUtil.show(t.data.msgX)
                     if (t.data.code == ApiContents.AGAIN_LOGIN) {

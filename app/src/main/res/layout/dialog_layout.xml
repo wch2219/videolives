@@ -2,6 +2,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
 
+              android:layout_margin="@dimen/dimen_40dp"
+              android:layout_height="wrap_content">
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_margin="@dimen/dimen_40dp"
+                  android:orientation="vertical"
+                  android:background="@color/white"
+                  android:layout_height="wrap_content">
+    <TextView android:layout_width="match_parent"
+              android:text="系统公告"
+              android:gravity="center"
+              android:textSize="@dimen/text_dimens16"
+              android:padding="@dimen/text_dimens15"
+              android:textColor="@color/white"
+              android:background="@color/appcolor"
+              android:layout_height="wrap_content"/>
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="vertical"
+                 android:layout_margin="@dimen/text_dimens20"
+                  android:layout_height="wrap_content">
+
+        <TextView android:layout_width="wrap_content"
+                  android:text="各位抖友请注意！！！"
+                  android:textColor="@color/text_33"
+                  android:layout_height="wrap_content"/>
+        <TextView android:layout_width="wrap_content"
+                  android:text="邀请福利全面升级！！"
+                  android:textColor="@color/text_33"
+                  android:layout_height="wrap_content"/>
+        <TextView android:layout_width="wrap_content"
+                  android:textColor="@color/text_33"
+                  android:text="每邀请一人每日视频播放量加5"
+                  android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/dimen_10dp"
+            android:layout_marginRight="@dimen/dimen_10dp"
+            android:background="@color/appcolor"
+            android:layout_height="@dimen/dimen_0.5dp"/>
+
+    <Button android:layout_width="match_parent"
+            android:background="@drawable/shapre_cire_bg"
+            android:text="朕知道了"
+            android:textColor="@color/white"
+            android:id="@+id/btn_close"
+            android:layout_margin="@dimen/text_dimens20"
+            android:layout_height="35dp"/>
+    </LinearLayout>
 </LinearLayout>

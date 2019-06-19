@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.CountDownTimer
 import com.example.kottlinbaselib.mvp.presenter.BasePresenter
 import com.example.kottlinbaselib.mvp.view.IView
+import com.example.kottlinbaselib.utils.SPUtils
 import com.example.videolive.MainActivity
 import com.example.videolive.R
+import com.example.videolive.model.utils.Contents
 import com.example.videolive.ui.base.BaseActivity
 
 class SplashActivity : BaseActivity<BasePresenter<IView>, IView>() {
@@ -27,13 +29,13 @@ class SplashActivity : BaseActivity<BasePresenter<IView>, IView>() {
         }
 
         override fun onFinish() {
-            startActivity(Intent(mContext, MainActivity::class.java))
-//            val token = SPUtils.getString(Contents.Token)
-//            if (token.isNullOrEmpty()) {
-//                startActivity(Intent(mContext, LoginActivity::class.java))
-//            } else {
-//                startActivity(Intent(mContext, MainActivity::class.java))
-//            }
+//            startActivity(Intent(mContext, MainActivity::class.java))
+            val token = SPUtils.getString(Contents.Token)
+            if (token.isNullOrEmpty()) {
+                startActivity(Intent(mContext, LoginActivity::class.java))
+            } else {
+                startActivity(Intent(mContext, MainActivity::class.java))
+            }
 
             finish()
         }

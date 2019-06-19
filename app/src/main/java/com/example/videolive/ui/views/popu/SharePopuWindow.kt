@@ -39,7 +39,7 @@ class SharePopuWindow(context: Context) : PopupWindow(context), View.OnClickList
         this.contentView = view
         this.width = ViewGroup.LayoutParams.MATCH_PARENT
         this.height = ViewGroup.LayoutParams.MATCH_PARENT
-        this.animationStyle = com.example.videolive.R.style.popwin_anim_style
+        this.animationStyle = R.style.popwin_anim_style
         this.isOutsideTouchable = true
         this.isClippingEnabled = false
         this.isFocusable = true

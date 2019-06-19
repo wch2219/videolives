@@ -1,13 +1,10 @@
 package com.hg.kotlin.api
 
 import android.os.Handler
-import android.text.TextUtils
-import com.alibaba.fastjson.JSON
 import com.example.kottlinbaselib.mvp.view.IView
 import com.example.kottlinbaselib.utils.BaseContents
 import com.example.kottlinbaselib.utils.LogUtils
 import com.example.videolive.model.bean.BaseResult
-import com.example.videolive.model.bean.InterBean
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 
