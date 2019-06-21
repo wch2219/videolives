@@ -1,11 +1,11 @@
-package com.example.videolive.ui.activitys
+package com.example.videolive.ui.fragments
 
-import android.text.TextUtils
+
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alibaba.fastjson.JSON
 import com.example.kottlinbaselib.utils.SPUtils
 import com.example.kottlinbaselib.utils.ToastUtil
+
 import com.example.videolive.R
 import com.example.videolive.model.bean.UserInfoBean
 import com.example.videolive.model.bean.VideoListBean
@@ -15,39 +15,44 @@ import com.example.videolive.mvp.model.Model
 import com.example.videolive.mvp.presenter.PoperInfoActivityPresenter
 import com.example.videolive.mvp.view.PoperInfoActivityIView
 import com.example.videolive.ui.adapters.MineAdapter
-import com.example.videolive.ui.base.BaseActivity
+import com.example.videolive.ui.base.BaseFragment
 import com.example.videolive.ui.views.SpaceItemDecoration
 import com.hg.kotlin.api.ApiContents
 import com.hg.kotlin.api.CustomObserver
-import kotlinx.android.synthetic.main.activity_play_video.*
-import kotlinx.android.synthetic.main.activity_poper_info.*
+import kotlinx.android.synthetic.main.fragment_user_infor_page.*
+
+import org.greenrobot.eventbus.EventBus
+
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
-class PoperInfoActivity : BaseActivity<PoperInfoActivityPresenter, PoperInfoActivityIView>(),PoperInfoActivityIView {
+class UserInforPageFragment : BaseFragment<PoperInfoActivityPresenter, PoperInfoActivityIView>(),
+    PoperInfoActivityIView {
     private var adapter: MineAdapter? = null
     private var page:Int = 1
     private var infos: MutableList<VideoListBean.DataBean.InfoBean> = mutableListOf()
     override fun getlayoutId(): Int {
-        return R.layout.activity_poper_info
+        return R.layout.fragment_user_infor_page
     }
 
-    override fun initView() {
-        isBlack = true
+    override fun initView(view: View) {
+        EventBus.getDefault().register(this)
         initRefreshLayout(smartfresh)
         smartfresh.setEnableLoadMore(true)
         smartfresh.setEnableRefresh(false)
+
     }
 
     override fun initData() {
 
-        val touid = intent.getStringExtra(Contents.TOUID)
+        val touid = activity?.intent?.getStringExtra(Contents.TOUID)
         val linaManager = GridLayoutManager(mContext, 3)
         rv_list.layoutManager = linaManager
-        adapter = MineAdapter(mContext!!, infos, R.layout.item_mine)
+        adapter = MineAdapter(mContext!!, infos, com.example.videolive.R.layout.item_mine)
         rv_list.adapter = adapter
         rv_list.addItemDecoration(SpaceItemDecoration(5, 10))
-        presenter.getVideoList(page,touid)
-        getUserInfo()
+
     }
 
     override fun VideoData(info: MutableList<VideoListBean.DataBean.InfoBean>) {
@@ -56,18 +61,28 @@ class PoperInfoActivity : BaseActivity<PoperInfoActivityPresenter, PoperInfoActi
     }
 
     override fun loadMore() {
-        val touid = intent.getStringExtra(Contents.TOUID)
-        presenter.getVideoList(page++,touid)
+        val touid = activity?.intent?.getStringExtra(Contents.TOUID)
+        presenter.getVideoList(page++,touid!!)
     }
     override fun createPresenter(): PoperInfoActivityPresenter {
         return PoperInfoActivityPresenter(mvpView)
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(touid:String) {
+        presenter.getVideoList(page,touid!!)
+        getUserInfo(touid)
 
-    fun getUserInfo() {
+    }
+    override fun onDestroyView() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroyView()
+    }
+
+    fun getUserInfo(touid: String) {
 
         val map: MutableMap<String, Any?> = mutableMapOf()
-        map[Contents.UID] = intent.getStringExtra(Contents.TOUID)
+        map[Contents.UID] = touid
         map[Contents.Token] = SPUtils.getString(Contents.Token)
         val userInfo = Model.getServer().getUserInfo(map)
         Model.getObservable(userInfo, object : CustomObserver<UserInfoBean>(null) {

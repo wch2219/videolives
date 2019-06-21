@@ -45,7 +45,7 @@ class HomeFragment : BaseFragment<BasePresenter<IView>, IView>(), RadioGroup.OnC
     override fun initView(rootView: View?) {
         transaction = childFragmentManager.beginTransaction()
     }
-
+    
     override fun initData() {
         fragments.add(HomeVideoFragment())
         fragments.add(LiveFragment())

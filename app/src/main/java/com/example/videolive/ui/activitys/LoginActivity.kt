@@ -20,8 +20,6 @@ class LoginActivity : BaseActivity<LoginPresenter, LoginView>(), View.OnClickLis
     }
 
     override fun initData() {
-        et_phone.setText("18637051978")
-        et_password.setText("qq111111")
     }
 
     override fun initListener() {

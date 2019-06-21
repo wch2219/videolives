@@ -23,6 +23,13 @@ class MainFragmentAdapter(fm: FragmentManager, fragments:List<Fragment>,titles:M
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return titles[position]
+        if (titles != null||titles.size != 0) {
+            if (fragments == null) {
+
+            }
+            return titles[position]
+        }
+
+        return super.getPageTitle(position)
     }
 }

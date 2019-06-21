@@ -16,4 +16,24 @@
             app:back_src="@mipmap/icon_back"
 
             android:layout_height="wrap_content"/>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/ll_jinggao"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+        <ImageView
+                android:layout_width="@dimen/dimen_60dp"
+                android:src="@mipmap/icon_jinggao"
+                android:layout_height="60dp"/>
+        <TextView android:layout_width="wrap_content"
+                  android:textColor="@color/white"
+                  android:textSize="@dimen/text_dimens12"
+                  android:layout_marginTop="@dimen/dimen_10dp"
+                  android:text="邀请好友,观看更多精彩视频"
+                  android:layout_height="wrap_content"/>
+    </LinearLayout>
 </RelativeLayout>

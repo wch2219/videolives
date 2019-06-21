@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import com.alibaba.fastjson.JSON
 import com.dueeeke.videocontroller.StandardVideoController
@@ -20,7 +21,9 @@ import com.example.videolive.ui.views.popu.SharePopuWindow
 import com.hg.kotlin.api.ApiContents
 import com.hg.kotlin.api.CustomObserver
 import kotlinx.android.synthetic.main.activity_play_video.*
-
+import kotlinx.android.synthetic.main.activity_play_video.ijkVideoView
+import kotlinx.android.synthetic.main.activity_play_video.ll_jinggao
+import kotlinx.android.synthetic.main.fragment_home_video.*
 
 
 /**
@@ -46,11 +49,18 @@ class PlayVideoActivity : BaseActivity<BasePresenter<IView>,IView>() {
         ijkVideoView.setLooping(true)
 
         startPlay()
+        ll_jinggao.setOnClickListener {
+           getUserInfo()
 
+        }
 
     }
 
     private fun startPlay() {
+        if ( ll_jinggao.visibility == View.VISIBLE) {
+
+            return
+        }
         val can_play_video = SPUtils.getInt(Contents.CANPLAYVIDEONUM)
         if (can_play_video <= 0) {
             //todo
@@ -110,7 +120,11 @@ class PlayVideoActivity : BaseActivity<BasePresenter<IView>,IView>() {
                     SPUtils.save(Contents.MAXIVIDEOMUM,t.data.info[0].view_videos)//最大视频数量
                     SPUtils.save(Contents.CANPLAYVIDEONUM,t.data.info[0].can_view_videos)//能播放的视频数量
                     SPUtils.save(Contents.INVITATIONCODE,t.data.info[0].invitationcode)//邀请码
-
+                    val can_play_video = SPUtils.getInt(Contents.CANPLAYVIDEONUM)
+                    if (can_play_video>0) {
+                        ll_jinggao.visibility = View.GONE
+                        startPlay()
+                    }
                 } else {
                     ToastUtil.show(t.data.msgX)
                     if (t.data.code == ApiContents.AGAIN_LOGIN) {
@@ -141,4 +155,6 @@ class PlayVideoActivity : BaseActivity<BasePresenter<IView>,IView>() {
             super.onBackPressed()
         }
     }
+
+
 }

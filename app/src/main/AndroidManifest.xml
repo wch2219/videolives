@@ -27,7 +27,9 @@
             tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ui.activitys.LiveActivity">
         </activity>
-        <activity android:name=".ui.activitys.PoperInfoActivity">
+        <activity android:name=".ui.activitys.PoperInfoActivity"
+                  android:screenOrientation="portrait"
+        >
         </activity> <!-- android:networkSecurityConfig="@xml/network_security_config" -->
         <provider
                 android:name="androidx.core.content.FileProvider"
@@ -43,9 +45,13 @@
                 android:name=".ui.activitys.PlayVideoActivity"
                 android:configChanges="orientation|screenSize|keyboardHidden">
         </activity>
-        <activity android:name=".ui.activitys.MineInfoActivity">
+        <activity android:name=".ui.activitys.MineInfoActivity"
+        android:screenOrientation="portrait"
+        >
         </activity>
-        <activity android:name=".ui.activitys.ChangePwdActivity">
+        <activity android:name=".ui.activitys.ChangePwdActivity"
+                  android:screenOrientation="portrait"
+        >
         </activity>
         <activity
                 android:name=".ui.activitys.SplashActivity"
@@ -63,6 +69,7 @@
         </activity>
         <activity
                 android:name=".ui.activitys.ForgetPwdActivity"
+
                 android:screenOrientation="portrait">
         </activity>
         <activity

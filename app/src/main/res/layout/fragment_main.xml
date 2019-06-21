@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
+             tools:context=".ui.fragments.MainFragment">
+    <com.example.videolive.ui.views.NoScrollViewPager
+            android:id="@+id/viewpage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+
+    />
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:orientation="vertical"
+                  android:layout_alignParentBottom="true"
+                  android:layout_height="wrap_content">
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+
+              android:background="@drawable/shape_apphometab_bg_coloe"
+        />
+        <com.google.android.material.tabs.TabLayout
+                android:layout_width="match_parent"
+                app:tabIndicatorFullWidth="false"
+                android:id="@+id/tablayout"
+                app:tabBackground="@android:color/transparent"
+                android:background="@color/transparent"
+                app:tabRippleColor="@color/transparent"
+                app:tabSelectedTextColor="@color/appcolor"
+                app:tabTextColor="@color/text_color"
+                android:layout_alignParentBottom="true"
+                app:tabIndicatorColor="@color/appcolor"
+                android:layout_height="@dimen/dimen_40dp">
+            <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:text="首页"
+                    android:layout_height="wrap_content"/>
+
+            <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:text="我的"
+                    android:layout_height="wrap_content"/>
+
+        </com.google.android.material.tabs.TabLayout>
+    </LinearLayout>
+
+    <ImageView android:layout_width="@dimen/dimen_40dp"
+               android:id="@+id/id_camera"
+               android:visibility="gone"
+               android:src="@mipmap/icon_homecenter"
+               android:layout_alignParentBottom="true"
+
+               android:layout_centerHorizontal="true"
+               android:layout_height="@dimen/dimen_40dp"/>
+</RelativeLayout>

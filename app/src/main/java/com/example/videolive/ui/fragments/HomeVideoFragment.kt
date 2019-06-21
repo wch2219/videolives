@@ -26,6 +26,7 @@ import com.example.videolive.ui.views.popu.SharePopuWindow
 import com.hg.kotlin.api.ApiContents
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
 import kotlinx.android.synthetic.main.fragment_home_video.*
+import org.greenrobot.eventbus.EventBus
 
 
 class HomeVideoFragment : BaseFragment<HomeVideoPresenter, HomeVideoIView>(), HomeVideoIView,
@@ -109,7 +110,10 @@ class HomeVideoFragment : BaseFragment<HomeVideoPresenter, HomeVideoIView>(), Ho
                 mCurrentPosition = position
             }
         })
+        ll_jinggao.setOnClickListener {
+            presenter.getUserInfo()
 
+        }
         adapter?.onClickListenter = this
     }
 
@@ -120,8 +124,9 @@ class HomeVideoFragment : BaseFragment<HomeVideoPresenter, HomeVideoIView>(), Ho
     }
 
     private fun startPlay(position: Int) {
-
-
+        if ( infos.size >0) {
+            EventBus.getDefault().post(infos[mCurrentPosition].userinfo.id)
+        }
         val itemView = rv_list.getChildAt(0)
         val frameLayout = itemView.findViewById<FrameLayout>(R.id.container)
         Glide.with(this)
@@ -143,10 +148,14 @@ class HomeVideoFragment : BaseFragment<HomeVideoPresenter, HomeVideoIView>(), Ho
         //是否可以滑动调整
         mIjkVideoView?.isLooping = true
         mIjkVideoView?.setIsTouchWiget(true)
+        if ( ll_jinggao.visibility == View.VISIBLE) {
 
-
+            return
+        }
         val can_play_video = SPUtils.getInt(Contents.CANPLAYVIDEONUM)
         if (can_play_video <= 0) {
+
+
             //todo
             val view = LayoutInflater.from(mContext).inflate(R.layout.dialog_layout, null)
             val builder = Dialog(mContext)
@@ -162,7 +171,7 @@ class HomeVideoFragment : BaseFragment<HomeVideoPresenter, HomeVideoIView>(), Ho
                     .setUrl(ApiContents.ShareUrl)
                 url.showAtLocation(rv_list, Gravity.CENTER, 0, 0)
                 url.setOnDismissListener {
-                    startPlay(position)
+                    ll_jinggao.visibility = View.VISIBLE
                 }
 
 //                builder.dismiss()
@@ -172,6 +181,7 @@ class HomeVideoFragment : BaseFragment<HomeVideoPresenter, HomeVideoIView>(), Ho
 //                    .setUrl(ApiContents.ShareUrl)
 //                    .showAtLocation(rv_list, Gravity.CENTER, 0, 0)
             }
+
             builder?.setCancelable(false)
             builder?.show()
 
@@ -179,7 +189,10 @@ class HomeVideoFragment : BaseFragment<HomeVideoPresenter, HomeVideoIView>(), Ho
 
 
             return
+        }else{
+            ll_jinggao.visibility = View.GONE
         }
+        ll_jinggao.visibility = View.GONE
         mIjkVideoView?.startPlayLogic()
         SPUtils.save(Contents.CANPLAYVIDEONUM, can_play_video - 1)
 //        seekBar.max = mIjkVideoView?.duration?.toInt()!!
@@ -189,12 +202,11 @@ class HomeVideoFragment : BaseFragment<HomeVideoPresenter, HomeVideoIView>(), Ho
     }
 
     override fun userInfo() {
-//        val can_play_video = SPUtils.getInt(Contents.CANPLAYVIDEONUM)
-//
-//        if (builder != null&&can_play_video>0) {
-//            builder?.dismiss()
-//            builder = null
-//        }
+        val can_play_video = SPUtils.getInt(Contents.CANPLAYVIDEONUM)
+        if (can_play_video > 0&&infos.size>0) {
+            ll_jinggao.visibility = View.GONE
+            startPlay(mCurrentPosition)
+        }
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
