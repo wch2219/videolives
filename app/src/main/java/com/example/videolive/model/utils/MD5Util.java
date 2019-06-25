@@ -1,5 +1,7 @@
 package com.example.videolive.model.utils;
 
+import com.hg.kotlin.api.ApiContents;
+
 import java.security.MessageDigest;
 
 /**
@@ -32,5 +34,10 @@ public class MD5Util {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static void main(String [] str){
+        String md5 = getMD5("mobile=17701026595" + ApiContents.SALT);
+        System.out.print(md5);
     }
 }

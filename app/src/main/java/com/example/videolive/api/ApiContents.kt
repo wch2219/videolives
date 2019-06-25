@@ -7,7 +7,7 @@ class ApiContents {
         const val SUCCESS: Int = 200 //成功
         const val AGAIN_LOGIN: Int = 700 //登录失效重新登录
         val Token: String = "token"
-        const val BaseUrl: String = "http://www.tlimit.top/"
+        const val BaseUrl: String = "http://39.109.11.199/"
         private const val PARENTPARAM = "api/public/?service="
         const val REGISTER: String = PARENTPARAM + "Login.UserReg"//注册
         const val GETCODE: String = PARENTPARAM + "Login.GetCode"//获取验证码
@@ -21,7 +21,7 @@ class ApiContents {
         const val GetFollowsList: String = PARENTPARAM + "User.GetFollowsList"//关注列表
         const val GetAttentionVideo: String = PARENTPARAM + "Video.GetAttentionVideo"//获取点赞视频列表
         const val GetHomeVideo: String = PARENTPARAM + "Video.GetHomeVideo"//获取个人主页视频
-        const val UPDATEPASS: String = PARENTPARAM + "User.UpdatePass"//获取密码
+        const val UPDATEPASS: String = PARENTPARAM + "User.UpdatePass"//修改密码
         const val SETVIDEO: String = PARENTPARAM + "Video.SetVideo"//上传短视频
         const val GetMyVideo: String = PARENTPARAM + "Video.GetMyVideo"//上传短视频
         const val UPDATEAVATAR: String = PARENTPARAM + "User.updateAvatar"//上传头像
