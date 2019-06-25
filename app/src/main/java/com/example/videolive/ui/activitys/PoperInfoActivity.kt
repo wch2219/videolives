@@ -1,9 +1,6 @@
 package com.example.videolive.ui.activitys
 
-import android.text.TextUtils
-import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alibaba.fastjson.JSON
 import com.example.kottlinbaselib.utils.SPUtils
 import com.example.kottlinbaselib.utils.ToastUtil
 import com.example.videolive.R
@@ -19,7 +16,6 @@ import com.example.videolive.ui.base.BaseActivity
 import com.example.videolive.ui.views.SpaceItemDecoration
 import com.hg.kotlin.api.ApiContents
 import com.hg.kotlin.api.CustomObserver
-import kotlinx.android.synthetic.main.activity_play_video.*
 import kotlinx.android.synthetic.main.activity_poper_info.*
 
 
@@ -43,7 +39,7 @@ class PoperInfoActivity : BaseActivity<PoperInfoActivityPresenter, PoperInfoActi
         val touid = intent.getStringExtra(Contents.TOUID)
         val linaManager = GridLayoutManager(mContext, 3)
         rv_list.layoutManager = linaManager
-        adapter = MineAdapter(mContext!!, infos, R.layout.item_mine)
+        adapter = MineAdapter(mContext!!, infos, R.layout.item_mine, "")
         rv_list.adapter = adapter
         rv_list.addItemDecoration(SpaceItemDecoration(5, 10))
         presenter.getVideoList(page,touid)

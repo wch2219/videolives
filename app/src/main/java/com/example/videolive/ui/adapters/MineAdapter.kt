@@ -12,8 +12,17 @@ import com.example.videolive.model.bean.VideoListBean
 import com.example.videolive.model.utils.GlideUtils
 import com.example.videolive.ui.activitys.PlayVideoActivity
 
-class MineAdapter(context: Context, data: MutableList<VideoListBean.DataBean.InfoBean>, layoutId: Int) :
+class MineAdapter(
+    context: Context,
+    data: MutableList<VideoListBean.DataBean.InfoBean>,
+    layoutId: Int,
+    api: String?
+) :
     BaseRecyclerAdapter<VideoListBean.DataBean.InfoBean>(context, data, layoutId) {
+    var api:String?=null
+    init {
+        this.api = api
+    }
 
     override fun bindData(holder: CommonViewHolder, data: VideoListBean.DataBean.InfoBean, position: Int) {
         val imageView = holder.getView<ImageView>(R.id.iv_thumb)
@@ -30,6 +39,7 @@ class MineAdapter(context: Context, data: MutableList<VideoListBean.DataBean.Inf
 
             val intent = Intent(mContext,PlayVideoActivity::class.java)
             intent.putExtra("url",data.href)
+            intent.putExtra("api",this.api)
             mContext?.startActivity(intent)
         })
     }

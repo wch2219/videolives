@@ -36,4 +36,6 @@
                   android:text="邀请好友,观看更多精彩视频"
                   android:layout_height="wrap_content"/>
     </LinearLayout>
+
+
 </RelativeLayout>

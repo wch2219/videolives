@@ -19,5 +19,5 @@
     <string name="getauthcode">验证码</string>
     <string name="placeinputpwd">请输入密码</string>
     <string name="live_liang">靓</string>
-    <string name="placeinpuInvita">请输入邀请码</string>
+    <string name="placeinpuInvita">请输入邀请码（可不填）</string>
 </resources>

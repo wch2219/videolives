@@ -1,7 +1,6 @@
 package com.hg.kotlin.api
 
 import android.content.Context
-import android.text.TextUtils
 import com.example.kottlinbaselib.utils.LogUtils
 import com.example.kottlinbaselib.utils.NetworkUtils
 import com.example.kottlinbaselib.utils.SPUtils
@@ -99,10 +98,10 @@ class OkHttpInterce : Interceptor {
                 builder.addHeader("Accept", "application/json")
                 builder.addHeader("Content-Type", "application/x-www-form-urlencoded")
                 val token = SPUtils.getString(ApiContents.Token)
-                if (!TextUtils.isEmpty(token)) {
-                    builder.addHeader("Authorization", "Bearer $token")
-                }
-                builder.addHeader("token", "Bearer")
+//                if (!TextUtils.isEmpty(token)) {
+//                    builder.addHeader("Authorization", "Bearer $token")
+//                }
+//                builder.addHeader("token", "Bearer")
                 val requestBuilder = builder.method(originalRequest.method(), originalRequest.body())
                 val request = requestBuilder.build()
                 chain.proceed(request)

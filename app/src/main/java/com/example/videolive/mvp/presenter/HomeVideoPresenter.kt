@@ -19,13 +19,13 @@ class HomeVideoPresenter(view:HomeVideoIView):BasePresenter<HomeVideoIView>(view
 
     fun getVideoList(page: Int){
         val map:MutableMap<String,Any?> = mutableMapOf()
-        map["uid"] = SPUtils.getString(Contents.UID)
+        map[Contents.UID] = SPUtils.getString(Contents.UID)
         map["p"] = page
 
         val videoList = Model.getServer().getVideoList(map)
         Model.getObservable(videoList,object :CustomObserver<VideoListBean>(mvpView){
 
-            override fun success(t: VideoListBean) {
+                override fun success(t: VideoListBean) {
                 if (t.data.code == 0) {
                     mvpView.videoList(t.data.info)
                 }else{

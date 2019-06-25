@@ -7,7 +7,6 @@ import android.view.Gravity
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.example.kottlinbaselib.utils.PermissionUtils
 import com.example.videolive.R
@@ -22,10 +21,7 @@ import com.example.videolive.ui.adapters.MainFragmentAdapter
 import com.example.videolive.ui.base.BaseFragment
 import com.example.videolive.ui.views.popu.SharePopuWindow
 import com.hg.kotlin.api.ApiContents
-import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_mine.*
-import kotlinx.android.synthetic.main.fragment_mine.tablayout
-import kotlinx.android.synthetic.main.fragment_mine.viewpage
 
 /**
  * 我的
@@ -80,11 +76,11 @@ class MineFragment : BaseFragment<MineFragmentPresenter, MineFragmentView>(), Vi
             }
 
             override fun onPageSelected(position: Int) {
-                if (position == 0) {
-                    tablayout.setBackgroundColor(resources.getColor(R.color.text_66))
-                }else{
-                    tablayout.setBackgroundColor(resources.getColor(R.color.white))
-                }
+//                if (position == 0) {
+//                    tablayout.setBackgroundColor(resources.getColor(R.color.text_66))
+//                }else{
+//                    tablayout.setBackgroundColor(resources.getColor(R.color.white))
+//                }
             }
         })
 

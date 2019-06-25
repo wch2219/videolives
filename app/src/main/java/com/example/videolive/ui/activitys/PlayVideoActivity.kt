@@ -21,15 +21,13 @@ import com.example.videolive.ui.views.popu.SharePopuWindow
 import com.hg.kotlin.api.ApiContents
 import com.hg.kotlin.api.CustomObserver
 import kotlinx.android.synthetic.main.activity_play_video.*
-import kotlinx.android.synthetic.main.activity_play_video.ijkVideoView
-import kotlinx.android.synthetic.main.activity_play_video.ll_jinggao
-import kotlinx.android.synthetic.main.fragment_home_video.*
+
 
 
 /**
  * 视频播放
  */
-class PlayVideoActivity : BaseActivity<BasePresenter<IView>,IView>() {
+class PlayVideoActivity : BaseActivity<BasePresenter<IView>, IView>() {
     override fun getlayoutId(): Int {
 
         return com.example.videolive.R.layout.activity_play_video
@@ -41,6 +39,7 @@ class PlayVideoActivity : BaseActivity<BasePresenter<IView>,IView>() {
 
     override fun initData() {
         val url = intent.getStringExtra("url")
+
         ijkVideoView.setUrl(url) //设置视频地址
         val controller = StandardVideoController(this)
         controller
@@ -50,17 +49,25 @@ class PlayVideoActivity : BaseActivity<BasePresenter<IView>,IView>() {
 
         startPlay()
         ll_jinggao.setOnClickListener {
-           getUserInfo()
+            getUserInfo()
 
         }
 
     }
 
     private fun startPlay() {
-        if ( ll_jinggao.visibility == View.VISIBLE) {
+        if (ll_jinggao.visibility == View.VISIBLE) {
 
             return
         }
+
+        val api = intent.getStringExtra("api")
+        if ("ApiContents.GetMyVideo" == api) {
+
+            ijkVideoView.start() //开始播放，不调用则不自动播放
+            return
+        }
+
         val can_play_video = SPUtils.getInt(Contents.CANPLAYVIDEONUM)
         if (can_play_video <= 0) {
             //todo
@@ -78,15 +85,16 @@ class PlayVideoActivity : BaseActivity<BasePresenter<IView>,IView>() {
                     .setUrl(ApiContents.ShareUrl)
                 url.showAtLocation(ijkVideoView, Gravity.CENTER, 0, 0)
                 url.setOnDismissListener {
-                   startPlay()
+//                    startPlay()
+                    ll_jinggao.visibility = View.VISIBLE
                 }
 
-    //                builder.dismiss()
-    //                SharePopuWindow(mContext)
-    //                    .instance()
-    //
-    //                    .setUrl(ApiContents.ShareUrl)
-    //                    .showAtLocation(rv_list, Gravity.CENTER, 0, 0)
+                //                builder.dismiss()
+                //                SharePopuWindow(mContext)
+                //                    .instance()
+                //
+                //                    .setUrl(ApiContents.ShareUrl)
+                //                    .showAtLocation(rv_list, Gravity.CENTER, 0, 0)
             }
             builder.setCancelable(false)
             builder.show()
@@ -117,11 +125,11 @@ class PlayVideoActivity : BaseActivity<BasePresenter<IView>,IView>() {
                     SPUtils.save(Contents.USER_NAME, t.data.info[0].user_nicename)
                     SPUtils.save(Contents.SIGNATURE, t.data.info[0].signature)
                     SPUtils.save(Contents.UID, t.data.info[0].id)
-                    SPUtils.save(Contents.MAXIVIDEOMUM,t.data.info[0].view_videos)//最大视频数量
-                    SPUtils.save(Contents.CANPLAYVIDEONUM,t.data.info[0].can_view_videos)//能播放的视频数量
-                    SPUtils.save(Contents.INVITATIONCODE,t.data.info[0].invitationcode)//邀请码
+                    SPUtils.save(Contents.MAXIVIDEOMUM, t.data.info[0].view_videos)//最大视频数量
+                    SPUtils.save(Contents.CANPLAYVIDEONUM, t.data.info[0].can_view_videos)//能播放的视频数量
+                    SPUtils.save(Contents.INVITATIONCODE, t.data.info[0].invitationcode)//邀请码
                     val can_play_video = SPUtils.getInt(Contents.CANPLAYVIDEONUM)
-                    if (can_play_video>0) {
+                    if (can_play_video > 0) {
                         ll_jinggao.visibility = View.GONE
                         startPlay()
                     }
@@ -134,6 +142,7 @@ class PlayVideoActivity : BaseActivity<BasePresenter<IView>,IView>() {
             }
         })
     }
+
     override fun onPause() {
         super.onPause()
         ijkVideoView.pause()

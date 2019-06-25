@@ -48,7 +48,7 @@ class MineTabragment : BaseFragment<MineTabragmentPresenter,MineTabragmentIView>
     override fun initData() {
         val linaManager = GridLayoutManager(mContext, 3)
         rv_list.layoutManager = linaManager
-        adapter = MineAdapter(mContext!!, infos, R.layout.item_mine)
+        adapter = MineAdapter(mContext!!, infos, R.layout.item_mine,arguments?.getString("api"))
         rv_list.adapter = adapter
         rv_list.addItemDecoration(SpaceItemDecoration(5, 10))
         if (arguments?.getString("api") != null) {
