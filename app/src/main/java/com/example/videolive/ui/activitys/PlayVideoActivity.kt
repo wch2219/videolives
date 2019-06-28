@@ -62,7 +62,7 @@ class PlayVideoActivity : BaseActivity<BasePresenter<IView>, IView>() {
         }
 
         val api = intent.getStringExtra("api")
-        if ("ApiContents.GetMyVideo" == api) {
+        if ("api/public/?service=Video.GetMyVideo" == api) {
 
             ijkVideoView.start() //开始播放，不调用则不自动播放
             return

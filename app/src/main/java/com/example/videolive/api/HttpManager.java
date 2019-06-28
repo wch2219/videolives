@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import com.hg.kotlin.api.ApiContents;
 import com.hg.kotlin.api.ApiServer;
+import com.hg.kotlin.api.CookieInter;
 import com.hg.kotlin.api.OkHttpInterce;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
@@ -54,7 +55,7 @@ public class HttpManager {
                 .addInterceptor(OkHttpInterce.Companion.getRequestHeader(context))
                 .addInterceptor(OkHttpInterce.Companion.getErrorCode())
                 .addNetworkInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-//                .cookieJar(new CookieInter())
+                .cookieJar(new CookieInter())
                 .cache(cache)
                 .build();
 

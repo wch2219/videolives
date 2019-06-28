@@ -45,7 +45,7 @@ class UserInforPageFragment : BaseFragment<PoperInfoActivityPresenter, PoperInfo
         val touid = activity?.intent?.getStringExtra(Contents.TOUID)
         val linaManager = GridLayoutManager(mContext, 3)
         rv_list.layoutManager = linaManager
-        adapter = MineAdapter(mContext!!, infos, com.example.videolive.R.layout.item_mine, arguments?.getString("api"))
+        adapter = MineAdapter(mContext!!, infos, R.layout.item_mine, arguments?.getString("api"))
         rv_list.adapter = adapter
         rv_list.addItemDecoration(SpaceItemDecoration(5, 10))
 
