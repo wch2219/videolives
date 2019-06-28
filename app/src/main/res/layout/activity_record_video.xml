@@ -22,7 +22,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_margin="20dp"
                 android:button="@null"
-                android:background="@mipmap/ic_launcher"
+                android:background="@mipmap/logo"
         />
         <LinearLayout
                 android:layout_width="match_parent"
